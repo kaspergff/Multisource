@@ -31,6 +31,9 @@
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
     <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
 
+    <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+
     <!-- This is the main css file for the default Alta theme -->
     <!-- injector:theme -->
     <link rel="stylesheet" href="css/libs/oj/v5.0.0/alta/oj-alta-min.css" type="text/css"/>
@@ -40,6 +43,8 @@
 
     <!-- This is where you would add any app specific styling -->
     <link rel="stylesheet" href="css/app.css" type="text/css"/>
+        <!--MapBox.js -->
+
 
   </head>
   <body class="oj-web-applayout-body">
@@ -73,8 +78,18 @@
           </div>
         </div>
       </header>
-      <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
-      </div>
+      <body>      
+        <!-- <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content"> -->
+          <div id='map' class="oj-web-applayout-max-width oj-web-applayout-content"></div>
+          <script>
+              L.mapbox.accessToken = 'pk.eyJ1Ijoia3JnZmYiLCJhIjoiY2pneHYyMTZmMWdpbTJ4bjAyOTRka3pmbiJ9.QzZJfoOueJ8wfmo0NCHGQQ';
+              var map = L.mapbox.map('map', 'mapbox.streets')
+              .setView([40, 0], 2);
+          </script>
+        <!-- </div> -->
+     
+        </body>
+
       <footer class="oj-web-applayout-footer" role="contentinfo">
         <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
           <ul>
@@ -88,11 +103,15 @@
         <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
           Copyright © 2014, 2018 Oracle and/or its affiliates All rights reserved.
         </div>
+        
       </footer>
     </div>
+
     
     <script type="text/javascript" src="js/libs/require/require.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    
+
 
   </body>
 
