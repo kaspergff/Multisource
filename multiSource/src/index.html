@@ -30,9 +30,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
     <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+    
+    <!--MapBox.js -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
 
-    <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
-    <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
 
     <!-- This is the main css file for the default Alta theme -->
     <!-- injector:theme -->
@@ -43,7 +45,7 @@
 
     <!-- This is where you would add any app specific styling -->
     <link rel="stylesheet" href="css/app.css" type="text/css"/>
-        <!--MapBox.js -->
+
 
 
   </head>
@@ -81,12 +83,6 @@
       <body>      
         <!-- <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content"> -->
           <div id='map' class="oj-web-applayout-max-width oj-web-applayout-content"></div>
-          <script>
-              L.mapbox.accessToken = 'pk.eyJ1Ijoia3JnZmYiLCJhIjoiY2pneHYyMTZmMWdpbTJ4bjAyOTRka3pmbiJ9.QzZJfoOueJ8wfmo0NCHGQQ';
-              var map = L.mapbox.map('map', 'mapbox.streets')
-              .setView([40, 0], 2);
-          </script>
-        <!-- </div> -->
      
         </body>
 
@@ -110,6 +106,7 @@
     
     <script type="text/javascript" src="js/libs/require/require.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script src='js/Mapbox/mapbox.js'></script>
     
 
 
