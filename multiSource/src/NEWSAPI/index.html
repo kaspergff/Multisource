@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <button onclick="getArticles()">Get Articles</button><br /><br />
+        <button onclick="logArticles()">Log Articles</button>
+</body>
+<script>
+var url = 'https://newsapi.org/v2/top-headlines?' +
+          'country=us&' +
+          'category=business&' +
+          'apiKey=c0dd3e7f7a9840528c87934d92d511e0';
+
+var req = new Request(url);
+
+var articles = [];
+
+function getArticles(){
+    fetch(req)
+    .then(response => response.json())
+    .then(data => articles = data.articles)
+}
+
+function logArticles(){
+    if(articles.length > 0){
+        console.log(articles);
+    }
+}
+
+</script>
+</html>
