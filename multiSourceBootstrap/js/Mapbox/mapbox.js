@@ -67,10 +67,12 @@ map.on('load', function () {
     //     map.setFilter("state-fills-hover", ["==", "name", ""]);
     // });
   
+    
+    // Functie die het klikken op de map regelt
     map.on("click", function(e) {
         var features = map.queryRenderedFeatures(e.point, { layers: ["state-fills"] });
         if (features.length) {
-            window.location = 'https://en.wikipedia.org/wiki/' + features[0].properties.ADMIN
+            window.location = 'https://en.wikipedia.org/wiki/' + features[0].properties.ADMIN;
         }
     });
 });
