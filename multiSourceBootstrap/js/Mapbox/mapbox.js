@@ -66,13 +66,22 @@ map.on('load', function () {
     //     map.getCanvas().style.cursor = 'auto';
     //     map.setFilter("state-fills-hover", ["==", "name", ""]);
     // });
-  
-    
+
+
     // Functie die het klikken op de map regelt
-    map.on("click", function(e) {
-        var features = map.queryRenderedFeatures(e.point, { layers: ["state-fills"] });
+    map.on("click", function (e) {
+        var features = map.queryRenderedFeatures(e.point, {layers: ["state-fills"]});
         if (features.length) {
-            window.location = 'https://en.wikipedia.org/wiki/' + features[0].properties.ADMIN;
+            //window.location = 'https://en.wikipedia.org/wiki/' + features[0].properties.ADMIN;
+            var url = 'https://newsapi.org/v2/top-headlines?' +
+                    'country=us&' +
+                    'apiKey=c0dd3e7f7a9840528c87934d92d511e0';
+            var req = new Request(url);
+            var articles = [];
+            fetch(req)
+    .then(response => response.json())
+    .then(data => articles.push(data.articles))
+    .then(console.log(articles));
         }
     });
 });
