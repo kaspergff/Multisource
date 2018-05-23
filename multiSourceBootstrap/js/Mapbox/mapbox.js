@@ -26,55 +26,35 @@ map.on('load', function () {
 
   // Functie die het klikken op de map regelt
   map.on("click", function (e) {
+    // Op welk land wordt geklikt --> .geojson
     var features = map.queryRenderedFeatures(e.point, {
       layers: ["state-fills"]
     });
-    var country = "";
-    if (features.length) {
-      var land = features[0].properties.ADMIN;
-       console.log(land);
-
-      for (let i = 0; i < ISO_a2.length; i++) {
-        for (let j = 0; j < ISO_a2[i].length; j++) {
-          if (ISO_a2[i][0] == land) {
-            country = ISO_a2[i][1]
-            console.log(country);            
-          }
-        }
-      }
-      var url = "https://newsapi.org/v2/top-headlines?" +
-        "country=" + country + "&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
-        console.log(url);
-      var req = new Request(url);
-      var articles = [];
-      fetch(req)
-        .then(response => response.json())
-        .then(data => articles.push(data.articles))
-        .then(console.log(articles));
-    };
-
-
-
-
-
-
-      // if (features.length && features[0].properties.ADMIN != "United States of America" ) {
-      //   window.location = 'https://en.wikipedia.org/wiki/' + features[0].properties.ADMIN;
-      // }
-      // else if (features[0].properties.ADMIN = "United States of America") {
-      //   var url = 'https://newsapi.org/v2/top-headlines?' +
-      //     'country=us&' +
-      //     'apiKey=c0dd3e7f7a9840528c87934d92d511e0';
-      //   var req = new Request(url);
-      //   var articles = [];
-      //   fetch(req)
-      //     .then(response => response.json())
-      //     .then(data => articles.push(data.articles))
-      //     .then(console.log(articles));
-      // }
-
+    // ISOa2 afkorting van het land
+    ISOa2 = isoA2(features);
+    // Haal articelen van het land
+    articles = newsByCountry(ISOa2);
+    console.log(articles);
   });
 });
+
+// Functie geeft ISO a2 van het land waarop gelikt is
+function isoA2(features) {
+  var ISOa2;
+  // Voor uitleg over deze loop moet je bij Kasper zijn
+  if (features.length) {
+      var land = features[0].properties.ADMIN;
+      for (let i = 0; i < ISO_a2.length; i++) {
+          for (let j = 0; j < ISO_a2[i].length; j++) {
+              if (ISO_a2[i][0] == land) {
+                  ISOa2 = ISO_a2[i][1]
+              }
+          }
+      }
+  }
+  return ISOa2;
+}
+
 
 
 
