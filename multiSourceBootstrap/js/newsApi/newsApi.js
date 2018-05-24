@@ -33,7 +33,7 @@ function isoA2(features) {
         for (let i = 0; i < ISO_a2.length; i++) {
             for (let j = 0; j < ISO_a2[i].length; j++) {
                 if (ISO_a2[i][0] == land) {
-                    ISOa2 = ISO_a2[i][1]
+                    ISOa2 = ISO_a2[i][1];
                 }
             }
         }
