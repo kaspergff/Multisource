@@ -1,64 +1,58 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoia3JnZmYiLCJhIjoiY2pneHYyMTZmMWdpbTJ4bjAyOTRka3pmbiJ9.QzZJfoOueJ8wfmo0NCHGQQ';
 var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/light-v9',
-  center: [-0, 37.830348],
-  zoom: 1.5
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v9',
+    center: [-0, 37.830348],
+    zoom: 1.5
 });
 
 map.on('load', function () {
-  map.addSource("states", {
-    "type": "geojson",
+    map.addSource("states", {
+        "type": "geojson",
 
-    "data": "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
-  });
-
-  map.addLayer({
-    "id": "state-fills",
-    "type": "fill",
-    "source": "states",
-    "layout": {},
-    "paint": {
-      // "fill-color": "#627BC1",
-      "fill-opacity": 0
-    }
-  });
-
-  // Functie die het klikken op de map regelt
-  map.on("click", function (e) {
-    // Op welk land wordt geklikt --> .geojson
-    var features = map.queryRenderedFeatures(e.point, {
-      layers: ["state-fills"]
+        "data": "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
     });
-    // ISOa2 afkorting van het land
-    ISOa2 = isoA2(features);
-    // Haal articelen van het land
-    articles = newsByCountry(ISOa2);
-    console.log(articles);
-  });
+
+    map.addLayer({
+        "id": "state-fills",
+        "type": "fill",
+        "source": "states",
+        "layout": {},
+        "paint": {
+            // "fill-color": "#627BC1",
+            "fill-opacity": 0
+        }
+    });
+
+    // Functie die het klikken op de map regelt
+    map.on("click", function (e) {
+        // Op welk land wordt geklikt --> .geojson
+        var features = map.queryRenderedFeatures(e.point, {
+            layers: ["state-fills"]
+        });
+        
+        // ISOa2 afkorting van het land
+        ISOa2 = isoA2(features);
+        // Haal articelen van het land
+        articles = newsByCountry(ISOa2[0]);
+        console.log(articles);
+       // createPopup(map, e, articles);
+    });
 });
 
-// Functie geeft ISO a2 van het land waarop gelikt is
-function isoA2(features) {
-  var ISOa2;
-  // Voor uitleg over deze loop moet je bij Kasper zijn
-  if (features.length) {
-      var land = features[0].properties.ADMIN;
-      for (let i = 0; i < ISO_a2.length; i++) {
-          for (let j = 0; j < ISO_a2[i].length; j++) {
-              if (ISO_a2[i][0] == land) {
-                  ISOa2 = ISO_a2[i][1]
-              }
-          }
-      }
-  }
-  return ISOa2;
+
+
+
+ var popupOptions = {closeButton: true,
+            closeOnClick: true};
+var popup = new mapboxgl.Popup(popupOptions);
+var tekstArtikelen;
+
+function createPopup (map, e, articles) {
+    popup.addTo(map)
+                .setLngLat(e.lngLat)
+                .setHTML("<p>" + articles[0][0].description + "</p>");
 }
-
-
-
-
-
 // map.addLayer({
 //     "id": "state-borders",
 //     "type": "line",
