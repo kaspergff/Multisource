@@ -9,7 +9,6 @@ var map = new mapboxgl.Map({
 map.on('load', function () {
   map.addSource("states", {
     "type": "geojson",
-
     "data": "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
   });
 
@@ -38,22 +37,7 @@ map.on('load', function () {
   });
 });
 
-// Functie geeft ISO a2 van het land waarop gelikt is
-function isoA2(features) {
-  var ISOa2;
-  // Voor uitleg over deze loop moet je bij Kasper zijn
-  if (features.length) {
-      var land = features[0].properties.ADMIN;
-      for (let i = 0; i < ISO_a2.length; i++) {
-          for (let j = 0; j < ISO_a2[i].length; j++) {
-              if (ISO_a2[i][0] == land) {
-                  ISOa2 = ISO_a2[i][1]
-              }
-          }
-      }
-  }
-  return ISOa2;
-}
+
 
 
 

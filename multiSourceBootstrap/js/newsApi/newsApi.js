@@ -1,10 +1,10 @@
-
+const APIkey = "apiKey=c0dd3e7f7a9840528c87934d92d511e0";
 // Functie maakt een newsAPI url voor een bepaald land
 // country = ISOa2 afkorting
 function makeCountryURL(country) {
     const part1 = "https://newsapi.org/v2/top-headlines?country=";
-    const part2 = "&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
-    var url = part1 + country + part2;
+    // const part2 = "&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
+    var url = part1 + country + "&" + APIkey;
     return url;
 }
 
