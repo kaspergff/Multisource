@@ -16,14 +16,22 @@ function newsByCountry(ISOa2) {
     var req = new Request(URL);
     // array om articels in op te slaan
     var articles = [];
-    // pak de articels
+    // pak de articles
+
+
     fetch(req)
         .then(response => response.json())
         .then(data => articles.push(data.articles))
-    // .then(console.log(articles));
+
+
     // return de articels
+    console.log(articles);
     return articles;
+
 }
+
+
+
 // Functie geeft ISO a2 van het land waarop gelikt is
 function isoA2(features) {
     var ISOa2;
@@ -39,4 +47,13 @@ function isoA2(features) {
         }
     }
     return ISOa2;
-  }
+}
+
+
+function getTitle(articles) {
+    return articles[0][0].title;
+}
+
+function displayText(text, id) {
+    document.getElementById(id).innerHTML = text;
+}

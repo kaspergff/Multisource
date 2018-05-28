@@ -24,6 +24,7 @@ function setCountryInfo(map, info, ISOa2) {
             document.getElementById('map').setAttribute("style", "width:70%");
             document.getElementById('info').setAttribute("style", "display:block");
             document.getElementById("countryName").innerHTML = "country";
+            ShowInfo = true;
         }
     }
 }

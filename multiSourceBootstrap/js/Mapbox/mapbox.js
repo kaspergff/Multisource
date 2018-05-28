@@ -22,7 +22,7 @@ map.on('load', function () {
             "fill-opacity": 0
         }
     });
-    // bool die aangeeft of het infoscherm te zien is
+    // var waarin opgeslagen is welk land is aangeklikt
     var ISOa2;
     // Functie die het klikken op de map regelt
     map.on("click", function (e) {
@@ -32,22 +32,26 @@ map.on('load', function () {
         });
         // ISOa2 afkorting van het land
         newISOa2 = isoA2(features);
-        if(ISOa2 != newISOa2){
+        if (ISOa2 != newISOa2) {
             ISOa2 = newISOa2;
             updateCountryName(ISOa2);
-            // console.log("ISOa2 " + ISOa2);
-            // console.log("newISOa2 " + newISOa2);
         }
 
         // Haal articelen van het land
         articles = newsByCountry(ISOa2);
-        console.log(articles);
 
-        // als er nog geen info scherm is plaats het anders haal het weg
+        // als er nog geen info scherm is plaats het
         if (ShowInfo == false) {
             setCountryInfo(map, info, ISOa2);
             ShowInfo = true;
         }
+
+        if (articles.length > 5) {
+            var title = getTitle(articles);
+            displayText(title, articleTitle);
+        }
+
+
 
     });
 });
