@@ -7,10 +7,10 @@ var map = new mapboxgl.Map({
 });
 
 map.on('load', function () {
-  map.addSource("states", {
-    "type": "geojson",
-    "data": "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
-  });
+    map.addSource("states", {
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
+    });
 
     map.addLayer({
         "id": "state-fills",
@@ -22,37 +22,49 @@ map.on('load', function () {
             "fill-opacity": 0
         }
     });
-
+    // bool die aangeeft of het infoscherm te zien is
+    var ISOa2;
     // Functie die het klikken op de map regelt
     map.on("click", function (e) {
         // Op welk land wordt geklikt --> .geojson
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
-        
         // ISOa2 afkorting van het land
-        ISOa2 = isoA2(features);
+        newISOa2 = isoA2(features);
+        if(ISOa2 != newISOa2){
+            ISOa2 = newISOa2;
+            updateCountryName(ISOa2);
+            // console.log("ISOa2 " + ISOa2);
+            // console.log("newISOa2 " + newISOa2);
+        }
+
         // Haal articelen van het land
-        articles = newsByCountry(ISOa2[0]);
+        articles = newsByCountry(ISOa2);
         console.log(articles);
-       // createPopup(map, e, articles);
+
+        // als er nog geen info scherm is plaats het anders haal het weg
+        if (ShowInfo == false) {
+            setCountryInfo(map, info, ISOa2);
+            ShowInfo = true;
+        }
+
     });
 });
 
 
 
-
-
-
- var popupOptions = {closeButton: true,
-            closeOnClick: true};
+var popupOptions = {
+    closeButton: true,
+    closeOnClick: true
+};
 var popup = new mapboxgl.Popup(popupOptions);
 var tekstArtikelen;
 
-function createPopup (map, e, articles) {
+function createPopup(map, e, articles) {
     popup.addTo(map)
-                .setLngLat(e.lngLat)
-                .setHTML("<p>" + articles[0][0].description + "</p>");
+        .setLngLat(e.lngLat)
+        .setHTML("<p>" + articles[0][0].description + "</p>");
 }
 // map.addLayer({
 //     "id": "state-borders",
