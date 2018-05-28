@@ -24,9 +24,35 @@ map.on('load', function () {
     });
     // var waarin opgeslagen is welk land is aangeklikt
     var ISOa2;
+    
+    //disable double click zoom
+    map.doubleClickZoom.disable();
     // Functie die het klikken op de map regelt
     map.on("click", function (e) {
         // Op welk land wordt geklikt --> .geojson
+        
+        
+        
+//        //Popup instantiëren
+//        new mapboxgl.Popup()
+//            //zet de plaats van de popup
+//                .setLngLat(coordinates)
+//            //zet de beschrijving van de popup
+//                .setHTML(description)
+//            .addTo(map);
+
+        
+
+        if (articles.length > 5) {
+            var title = getTitle(articles);
+            displayText(title, articleTitle);
+        }
+
+
+
+    });
+    map.on('dblclick', function (e) {
+        
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
@@ -39,20 +65,12 @@ map.on('load', function () {
 
         // Haal articelen van het land
         articles = newsByCountry(ISOa2);
-
         // als er nog geen info scherm is plaats het
         if (ShowInfo == false) {
             setCountryInfo(map, info, ISOa2);
             ShowInfo = true;
         }
-
-        if (articles.length > 5) {
-            var title = getTitle(articles);
-            displayText(title, articleTitle);
-        }
-
-
-
+        
     });
 });
 
