@@ -18,11 +18,9 @@ function newsByCountry(ISOa2) {
     var articles = [];
     // pak de articles
 
-
     fetch(req)
         .then(response => response.json())
         .then(data => articles.push(data.articles))
-
 
     // return de articels
     console.log(articles);

@@ -41,15 +41,6 @@ map.on('load', function () {
 //                .setHTML(description)
 //            .addTo(map);
 
-        
-
-        if (articles.length > 5) {
-            var title = getTitle(articles);
-            displayText(title, articleTitle);
-        }
-
-
-
     });
     map.on('dblclick', function (e) {
         
