@@ -13,22 +13,22 @@ function newsByCountry(ISOa2) {
     // Maak URL
     var URL = makeCountryURL(ISOa2);
     // Maak http request
-    var req = new Request(URL);
-    // array om articels in op te slaan
-    var articles = [];
-    // pak de articles
+    // var req = new Request(URL);
+    // // array om articels in op te slaan
+    // var articles = [];
+    // // pak de articles
 
-    fetch(req)
-        .then(response => response.json())
-        .then(data => articles.push(data.articles))
+    // fetch(req)
+    //     .then(response => response.json())
+    //     .then(data => articles.push(data.articles))
 
-    // return de articels
+    // // return de articels
+    
+
+    articles = getArticles(URL);
     console.log(articles);
     return articles;
-
 }
-
-
 
 // Functie geeft ISO a2 van het land waarop gelikt is
 function isoA2(features) {
@@ -46,6 +46,16 @@ function isoA2(features) {
     }
     return ISOa2;
 }
+
+function getArticles(url) {
+    var articles = [];
+    var req = new Request(url);
+    fetch(req)
+        .then(response => response.json())
+        .then(data => articles = data.articles)
+    return articles;
+}
+
 
 
 function getTitle(articles) {

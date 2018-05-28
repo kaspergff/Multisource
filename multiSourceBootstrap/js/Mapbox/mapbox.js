@@ -79,6 +79,9 @@ function createPopup(map, e, articles) {
         .setLngLat(e.lngLat)
         .setHTML("<p>" + articles[0][0].description + "</p>");
 }
+
+
+
 // map.addLayer({
 //     "id": "state-borders",
 //     "type": "line",
