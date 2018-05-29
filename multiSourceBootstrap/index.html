@@ -68,53 +68,12 @@
     <div>
         <div id="info">
             <p id="countryName">Test</p>
-            <p>First name:
-                <input data-bind="value: firstName" />
-            </p>
-            <p>Last name:
-                <input data-bind="value: lastName" />
-            </p>
-            <h2>Hello,
-                <span data-bind="text: fullName"> </span>!</h2>
+            <p id="titles">titles</p>
 
-            <button onclick="getArticles3()">Get Articles</button>
-            <br />
-            <br />
-            <button onclick="logArticles3()">Log Articles</button>
-            <button onclick="setCountryInfo(map, info); info = false"></button>
         </div>
         <div id='map' class='container-fluid'></div>
 
     </div>
-
-
-
-
-
-
-    <script>
-        var url = 'https://newsapi.org/v2/top-headlines?' +
-            'country=us&' +
-            'category=business&' +
-            'apiKey=c0dd3e7f7a9840528c87934d92d511e0';
-
-
-        var req = new Request(url);
-        var articles = [];
-
-        function getArticles3() {
-            fetch(req)
-                .then(response => response.json())
-                .then(data => articles = data.articles)
-        }
-
-        function logArticles3() {
-            if (articles.length > 0) {
-                console.log(articles[0].title);
-            }
-        }
-    </script>
-
 
 </body>
 

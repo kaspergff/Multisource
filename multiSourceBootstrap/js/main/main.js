@@ -45,3 +45,7 @@ function updateCountryName(ISOa2) {
     var country = getCountryName(ISOa2);
     document.getElementById("countryName").innerHTML = country;
 }
+
+function getTitle(a, i){
+    return a[i].title;
+}
