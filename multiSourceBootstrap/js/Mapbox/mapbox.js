@@ -22,7 +22,33 @@ map.on('load', function () {
             "fill-opacity": 0
         }
     });
-
+    
+    map.addLayer({
+        "id": "places",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "properties": {
+                        "description": "<strong>Make it Mount Pleasant</strong><p><a href=\"http://www.mtpleasantdc.com/makeitmtpleasant\" target=\"_blank\" title=\"Opens in a new window\">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>",
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [5, 52.931567]
+                    }
+                }]
+            }
+        },
+        "layout": {
+            "icon-image": "{icon}-15",
+            "icon-allow-overlap": true
+        }
+    });
+    
     //disable double click zoom
     map.doubleClickZoom.disable();
     // Functie die het klikken op de map regelt
@@ -32,7 +58,7 @@ map.on('load', function () {
             layers: ["state-fills"]
         });
 
-        var articles = newsByCountry(features)
+        newsByCountry(features)
             .then(function (articles) {
                 createPopup(map, e, articles[0].title);
             });
