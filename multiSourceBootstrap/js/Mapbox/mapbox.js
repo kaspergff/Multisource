@@ -22,11 +22,42 @@ map.on('load', function () {
             "fill-opacity": 0
         }
     });
+    
+    map.addLayer({
+        "id": "mh-17",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "properties": {
+                        "description": "<strong>Make it Mount Pleasant</strong><p><a href=\"http://www.mtpleasantdc.com/makeitmtpleasant\" target=\"_blank\" title=\"Opens in a new window\">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>",
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [5.931567, 52.038659]
+                    }
+                }]
+            }
+        },
+        "layout": {
+            "icon-image": "{icon}-15",
+            "icon-allow-overlap": true
+        }
+    });
 
     //disable double click zoom
     map.doubleClickZoom.disable();
+    
     // Functie die het klikken op de map regelt
      map.on("click", function (e) {
+         if (e.lngLat === [5.931567, 52.038659]) {
+             alert("echtzo");
+         } else {
+         
          // Op welk land wordt geklikt --> .geojson
          var features = map.queryRenderedFeatures(e.point, {
              layers: ["state-fills"]
@@ -35,18 +66,33 @@ map.on('load', function () {
          articlePopup(features)
                  .then(results => createPopup(map, e, results[2]))
                  .catch(err => console.error(err));
-//         req = newsByCountry(features);
-//
-//         fetch(req)
-//             .then(response => response.json())
-//             .then(data => articles = data.articles)
-//             .then(function (articles) {
-//                 console.log(articles);
-//             });
-
-
+         }
      });
+    
+    // Functie die het klikken op een icoon regelt
+    map.on("click", function(f) {
+        console.log("e: " + f);
+        var iconFeatures = map.queryRenderedFeatures(f.point);
+        var coordinates = iconFeatures[0].geometry.coordinates.slice();
+        
+        new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML("<p>Het Joint Investigation Team (JIT) beschuldigd Rusland van het neerhalen van MH17<p>")
+            .addTo(map)
+            .catch(err => console.error(err));
+    });
+    
+    // Maakt van de muis een pointer als er over de icoontjes wordt gehoverd
+    map.on('mouseenter', 'mh-17', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
 
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'mh-17', function () {
+        map.getCanvas().style.cursor = '';
+    });
+    
+    // Functie die het dubbel klikken op de map regelt
     map.on('dblclick', function (e) {
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
