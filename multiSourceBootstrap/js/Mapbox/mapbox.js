@@ -26,26 +26,17 @@ map.on('load', function () {
     //disable double click zoom
     map.doubleClickZoom.disable();
     // Functie die het klikken op de map regelt
-     map.on("click", function (e) {
-         // Op welk land wordt geklikt --> .geojson
-         var features = map.queryRenderedFeatures(e.point, {
-             layers: ["state-fills"]
-         });
+    map.on("click", function (e) {
+        // Op welk land wordt geklikt --> .geojson
+        var features = map.queryRenderedFeatures(e.point, {
+            layers: ["state-fills"]
+        });
 
-         articlePopup(features)
-                 .then(results => createPopup(map, e, results[2]))
-                 .catch(err => console.error(err));
-//         req = newsByCountry(features);
-//
-//         fetch(req)
-//             .then(response => response.json())
-//             .then(data => articles = data.articles)
-//             .then(function (articles) {
-//                 console.log(articles);
-//             });
-
-
-     });
+        var articles = newsByCountry(features)
+            .then(function (articles) {
+                createPopup(map, e, articles[0].title);
+            });
+    });
 
     map.on('dblclick', function (e) {
         var features = map.queryRenderedFeatures(e.point, {
@@ -64,25 +55,10 @@ map.on('load', function () {
             setCountryInfo(map, info, ISOa2);
             ShowInfo = true;
         }
-        req = newsByCountry(features);
-
-        fetch(req)
-            .then(response => response.json())
-            .then(data => articles = data.articles)
-            .then(function(articles) {
-                console.log(articles);
-                var text;
-                for (let i = 0; i < articles.length; i++) {
-                    var tussen = articles[i].title;
-                    text = text + "<br>" + tussen;
-                    
-                }
-                console.log(text);
-                document.getElementById("titles").innerHTML = text;
-
+        var articles = newsByCountry(features)
+            .then(function (articles) {
+                console.log(articles)
             });
-
-
     });
 });
 
@@ -93,20 +69,12 @@ var popupOptions = {
     closeOnClick: true
 };
 var popup = new mapboxgl.Popup(popupOptions);
-var tekstArtikelen;
 
-async function articlePopup(features) {
-    let news = await fetch(newsByCountry(features));
-    let json = await news.json();
-    return json.articles;
-}
-
-function createPopup(map, e, articles) {
+function createPopup(map, e, text) {
     popup.addTo(map)
         .setLngLat(e.lngLat)
-        .setHTML("<p>" + JSON.stringify(articles.description) + "</p>");
+        .setHTML("<p>" + text + "</p>");
 }
-
 
 
 // map.addLayer({

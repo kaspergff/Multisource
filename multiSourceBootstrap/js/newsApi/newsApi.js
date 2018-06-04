@@ -9,15 +9,15 @@ function makeCountryURL(country) {
 }
 
 // functie geeft nieuws van een bepaald land op basis van de ISOa2 afkorting
-function newsByCountry(features) {
+async function newsByCountry(features) {
     var country = isoA2(features);
     if (!country)
         country = "us";
     var url = makeCountryURL(country);
     var req = new Request(url);
-    return req;
-    var articles;
-
+    let news = await fetch(req);
+    let json = await news.json();
+    return json.articles
 }
 
 // Functie geeft ISO a2 van het land waarop gelikt is
