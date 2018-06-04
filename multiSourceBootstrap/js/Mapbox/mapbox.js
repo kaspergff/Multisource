@@ -26,25 +26,26 @@ map.on('load', function () {
     //disable double click zoom
     map.doubleClickZoom.disable();
     // Functie die het klikken op de map regelt
-    // map.on("click", function (e) {
-    //     // Op welk land wordt geklikt --> .geojson
-    //     var features = map.queryRenderedFeatures(e.point, {
-    //         layers: ["state-fills"]
-    //     });
+     map.on("click", function (e) {
+         // Op welk land wordt geklikt --> .geojson
+         var features = map.queryRenderedFeatures(e.point, {
+             layers: ["state-fills"]
+         });
 
-    //     // fetch(news => newsByCountry(features))
-    //     //     .then(news => console.log(news));
-    //     req = newsByCountry(features);
+         articlePopup(features)
+                 .then(results => createPopup(map, e, results[2]))
+                 .catch(err => console.error(err));
+//         req = newsByCountry(features);
+//
+//         fetch(req)
+//             .then(response => response.json())
+//             .then(data => articles = data.articles)
+//             .then(function (articles) {
+//                 console.log(articles);
+//             });
 
-    //     fetch(req)
-    //         .then(response => response.json())
-    //         .then(data => articles = data.articles)
-    //         .then(function (articles) {
-    //             console.log(articles)
-    //         });
 
-
-    // });
+     });
 
     map.on('dblclick', function (e) {
         var features = map.queryRenderedFeatures(e.point, {
@@ -69,14 +70,14 @@ map.on('load', function () {
             .then(response => response.json())
             .then(data => articles = data.articles)
             .then(function(articles) {
-                console.log(articles)
-                var text
+                console.log(articles);
+                var text;
                 for (let i = 0; i < articles.length; i++) {
                     var tussen = articles[i].title;
-                    text = text + "----next----" + tussen;
+                    text = text + "<br>" + tussen;
                     
                 }
-                console.log(text)
+                console.log(text);
                 document.getElementById("titles").innerHTML = text;
 
             });
@@ -94,10 +95,16 @@ var popupOptions = {
 var popup = new mapboxgl.Popup(popupOptions);
 var tekstArtikelen;
 
+async function articlePopup(features) {
+    let news = await fetch(newsByCountry(features));
+    let json = await news.json();
+    return json.articles;
+}
+
 function createPopup(map, e, articles) {
     popup.addTo(map)
         .setLngLat(e.lngLat)
-        .setHTML("<p>" + articles[0][0].description + "</p>");
+        .setHTML("<p>" + JSON.stringify(articles.description) + "</p>");
 }
 
 
