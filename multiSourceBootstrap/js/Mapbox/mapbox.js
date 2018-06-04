@@ -24,7 +24,7 @@ map.on('load', function () {
     });
     
     map.addLayer({
-        "id": "places",
+        "id": "mh-17",
         "type": "symbol",
         "source": {
             "type": "geojson",
@@ -33,7 +33,7 @@ map.on('load', function () {
                 "features": [{
                     "type": "Feature",
                     "properties": {
-                        "description": "<strong>Make it Mount Pleasant</strong><p><a href=\"http://www.mtpleasantdc.com/makeitmtpleasant\" target=\"_blank\" title=\"Opens in a new window\">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>",
+                        "description": "BLABLABLABLA",
                         "icon": "theatre"
                     },
                     "geometry": {
@@ -57,11 +57,24 @@ map.on('load', function () {
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
-
+        var iconFeatures = map.queryRenderedFeatures(e.point, {layers:  ['mh-17']});
+        console.log("features: " + JSON.stringify(features));
+        console.log("iconFeatures " + JSON.stringify(iconFeatures));
+        
+        
+        if (iconFeatures.length > 0) {
+            console.log("in de if statement");
+            createPopup(map, e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'");
+        } else {
+            
+        
+  
         newsByCountry(features)
             .then(function (articles) {
                 createPopup(map, e, articles[0].title);
             });
+        }
+            
     });
 
     map.on('dblclick', function (e) {
@@ -72,18 +85,18 @@ map.on('load', function () {
         // ISOa2 afkorting van het land
         newISOa2 = isoA2(features);
 
-        if (ISOa2 != newISOa2) {
+        if (ISOa2 !== newISOa2) {
             ISOa2 = newISOa2;
             updateCountryName(ISOa2);
         }
 
-        if (ShowInfo == false) {
+        if (ShowInfo === false) {
             setCountryInfo(map, info, ISOa2);
             ShowInfo = true;
         }
-        var articles = newsByCountry(features)
+        newsByCountry(features)
             .then(function (articles) {
-                console.log(articles)
+                console.log(articles);
             });
     });
 });
