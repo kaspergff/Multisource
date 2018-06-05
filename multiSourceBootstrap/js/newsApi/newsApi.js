@@ -8,6 +8,15 @@ function makeCountryURL(country) {
     return url;
 }
 
+async function newsOnLoad() {
+    //const url = "https://newsapi.org/v2/everything?q=" + q + "&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
+    const url = "https://newsapi.org/v2/sources?language=en&category=general&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
+    var req = new Request(url);
+    let news = await fetch(req);
+    let json = await news.json();
+    return json.sources;
+}
+
 // functie geeft nieuws van een bepaald land op basis van de ISOa2 afkorting
 async function newsByCountry(features) {
     var country = isoA2(features);
@@ -48,7 +57,7 @@ function isoA2(features) {
 // }
 
 
-function getTitle(a, i){
+function getTitle(a, i) {
     return a[i].title;
 }
 

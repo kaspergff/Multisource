@@ -23,6 +23,11 @@ map.on('load', function () {
         }
     });
 
+    var newsLoad = newsOnLoad()
+        .then(function (newsLoad) {
+            console.log(newsLoad)
+        }).catch(err => console.error(err));
+
     //disable double click zoom
     map.doubleClickZoom.disable();
     // Functie die het klikken op de map regelt
