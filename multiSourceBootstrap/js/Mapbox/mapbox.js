@@ -22,12 +22,33 @@ map.on('load', function () {
             "fill-opacity": 0
         }
     });
-
-    var newsLoad = newsOnLoad()
-        .then(function (newsLoad) {
-            console.log(newsLoad)
-        }).catch(err => console.error(err));
-
+    
+    map.addLayer({
+        "id": "mh-17",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "properties": {
+                        "description": "BLABLABLABLA",
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [5, 52.931567]
+                    }
+                }]
+            }
+        },
+        "layout": {
+            "icon-image": "{icon}-15",
+            "icon-allow-overlap": true
+        }
+    });
+    
     //disable double click zoom
     map.doubleClickZoom.disable();
     // Functie die het klikken op de map regelt
@@ -36,11 +57,24 @@ map.on('load', function () {
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
-
-        var articles = newsByCountry(features)
+        var iconFeatures = map.queryRenderedFeatures(e.point, {layers:  ['mh-17']});
+        console.log("features: " + JSON.stringify(features));
+        console.log("iconFeatures " + JSON.stringify(iconFeatures));
+        
+        
+        if (iconFeatures.length > 0) {
+            console.log("in de if statement");
+            createPopup(map, e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'");
+        } else {
+            
+        
+  
+        newsByCountry(features)
             .then(function (articles) {
                 createPopup(map, e, articles[0].title);
             });
+        }
+            
     });
 
     map.on('dblclick', function (e) {
@@ -51,18 +85,18 @@ map.on('load', function () {
         // ISOa2 afkorting van het land
         newISOa2 = isoA2(features);
 
-        if (ISOa2 != newISOa2) {
+        if (ISOa2 !== newISOa2) {
             ISOa2 = newISOa2;
             updateCountryName(ISOa2);
         }
 
-        if (ShowInfo == false) {
+        if (ShowInfo === false) {
             setCountryInfo(map, info, ISOa2);
             ShowInfo = true;
         }
-        var articles = newsByCountry(features)
+        newsByCountry(features)
             .then(function (articles) {
-                console.log(articles)
+                console.log(articles);
             });
     });
 });
