@@ -75,13 +75,11 @@ map.on('load', function () {
             createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
             icon(map, e);
         } else {
-
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map);
                 });
         }
-
     });
 
     map.on('dblclick', function (e) {
@@ -110,8 +108,7 @@ map.on('load', function () {
 
 var markerGeoJSON = {
     "type": "FeatureCollection",
-    "features": [
-        {
+    "features": [{
             "type": "Feature",
             "properties": {
                 "message": "МО России: В Гааге подтвердили, что MH17 сбили из «Бука» ПВО Украины",
@@ -134,8 +131,7 @@ var markerGeoJSON = {
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    150.945667,
-                    -33.809140
+                    150.945667, -33.809140
                 ]
             }
         },
@@ -147,10 +143,7 @@ var markerGeoJSON = {
             },
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    -63.29223632812499,
-                    -18.28151823530889
-                ]
+                "coordinates": [-63.29223632812499, -18.28151823530889]
             }
         }
     ]
@@ -168,8 +161,8 @@ var markerFeatures = [];
 function createPopup(e, text, map) {
     if (map) {
         popup.addTo(map)
-                .setLngLat(e.lngLat)
-                .setHTML("<p>" + text + "</p>");
+            .setLngLat(e.lngLat)
+            .setHTML("<p>" + text + "</p>");
     } else {
         var markerPopup = new mapboxgl.Popup(popupOptions);
         markerPopup.setHTML("<p>" + text + "</p>");
@@ -191,7 +184,7 @@ function icon(map, e) {
         //verplaatst de markers enigszins om de markers goed op de kaart te laten zien
         var markerOffsetX = marker.properties.iconSize[0] * -1;
         var markerOffsetY = marker.properties.iconSize[1] * -1;
-        
+
         //creëert een popup voor iedere marker
         var markerPopup = createPopup(marker.geometry.coordinates, marker.properties.message);
         // add marker to map
@@ -203,7 +196,7 @@ function icon(map, e) {
         markerFeatures.push(marker.geometry.coordinates);
                 
     });
-    }
+}
 
 
 // map.addLayer({
