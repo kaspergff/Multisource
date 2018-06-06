@@ -12,7 +12,6 @@ map.on('load', function () {
         "data": "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
     });
 
-   
     map.addLayer({
         "id": "state-fills",
         "type": "fill",
@@ -32,48 +31,59 @@ map.on('load', function () {
             "data": {
                 "type": "FeatureCollection",
                 "features": [{
-                        "type": "Feature",
-                        "properties": {
-                            "description": "BLABLABLABLA",
-                            "icon": "theatre"
-                        },
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [5, 52.931567]
-                        }
-                    }]
+                    "type": "Feature",
+                    "properties": {
+                        "description": "BLABLABLABLA",
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [5, 52.931567]
+                    }
+                }]
             }
         },
         "layout": {
             "icon-image": "{icon}-15",
             "icon-allow-overlap": true
         }
+
+
+
     });
+    var newsFetch = newsOnLoad()
+        .then(function (newsFetch) {
+            console.log(newsFetch);
+        });
 
     //disable double click zoom
     map.doubleClickZoom.disable();
     // Functie die het klikken op de map regelt
     map.on("click", function (e) {
-            // Op welk land wordt geklikt --> .geojson
-            var features = map.queryRenderedFeatures(e.point, {
-                layers: ["state-fills"]
-            });
-            var iconFeatures = map.queryRenderedFeatures(e.point, {layers: ['mh-17']});
+        // Op welk land wordt geklikt --> .geojson
+        var features = map.queryRenderedFeatures(e.point, {
+            layers: ["state-fills"]
+        });
+        var iconFeatures = map.queryRenderedFeatures(e.point, {
+            layers: ['mh-17']
+        });
+        console.log("features: " + JSON.stringify(features));
+        console.log("iconFeatures " + JSON.stringify(iconFeatures));
+
+
+        if (iconFeatures.length > 0) {
+            console.log("in de if statement");
+            createPopup(map, e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'");
+        } else {
 
 
 
-            if (iconFeatures.length > 0) {
-                console.log("in de if statement");
-                icon(map, e);
-            } else {
+            newsByCountry(features)
+                .then(function (articles) {
+                    createPopup(map, e, articles[0].title);
+                });
+        }
 
-
-
-                newsByCountry(features)
-                        .then(function (articles) {
-                            createPopup(e, articles[0].title, map);
-                        });
-            }
     });
 
     map.on('dblclick', function (e) {
@@ -94,105 +104,27 @@ map.on('load', function () {
             ShowInfo = true;
         }
         newsByCountry(features)
-                .then(function (articles) {
-                    console.log(articles);
-                });
+            .then(function (articles) {
+                console.log(articles);
+            });
     });
 });
 
-var clickEnabled = true;
 
-var markerGeoJSON = {
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "type": "Feature",
-            "properties": {
-                "message": "МО России: В Гааге подтвердили, что MH17 сбили из «Бука» ПВО Украины",
-                "iconSize": [60, 60]
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    37.621407,
-                    55.754700
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "message": "JIT confirms: The missle that took down MH-17 was of russian origin",
-                "iconSize": [50, 50]
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    150.945667,
-                    -33.809140
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "message": "Baz",
-                "iconSize": [40, 40]
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -63.29223632812499,
-                    -18.28151823530889
-                ]
-            }
-        }
-    ]
-};
 
 var popupOptions = {
     closeButton: true,
-    closeOnClick: false
+    closeOnClick: true
 };
 var popup = new mapboxgl.Popup(popupOptions);
 
-function createPopup(e, text, map) {
-    if (map) {
-        popup.addTo(map)
-                .setLngLat(e.lngLat)
-                .setHTML("<p>" + text + "</p>");
-    } else {
-        var markerPopup = new mapboxgl.Popup(popupOptions);
-        markerPopup.setHTML("<p>" + text + "</p>");
-        return markerPopup;
-    }
+function createPopup(map, e, text) {
+    popup.addTo(map)
+        .setLngLat(e.lngLat)
+        .setHTML("<p>" + text + "</p>");
 }
 
-function icon(map, e) {
-    createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
-    //loopje om alle markers te maken
-    markerGeoJSON.features.forEach(function (marker) {
-        console.log("doet weer shit met markers");
-        //creëert een divje om de markers in te definiëren
-        var el = document.createElement('div');
-        el.className = 'marker';
-        el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
-        el.style.width = marker.properties.iconSize[0] + 'px';
-        el.style.height = marker.properties.iconSize[1] + 'px';
-        //verplaatst de markers enigszins om de markers goed op de kaart te laten zien
-        var markerOffsetX = marker.properties.iconSize[0] * -1;
-        var markerOffsetY = marker.properties.iconSize[1] * -1;
-        
-        //creëert een popup voor iedere marker
-        var markerPopup = createPopup(marker.geometry.coordinates, marker.properties.message);
-        // add marker to map
-        new mapboxgl.Marker(el, {offset: [markerOffsetX / 2, markerOffsetY]})
-                .setLngLat(marker.geometry.coordinates)
-                .addTo(map)
-                .setPopup(markerPopup);
-                
-    });
-}
+
 // map.addLayer({
 //     "id": "state-borders",
 //     "type": "line",
