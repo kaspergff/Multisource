@@ -22,7 +22,7 @@ map.on('load', function () {
             "fill-opacity": 0
         }
     });
-    
+
     map.addLayer({
         "id": "mh-17",
         "type": "symbol",
@@ -47,8 +47,15 @@ map.on('load', function () {
             "icon-image": "{icon}-15",
             "icon-allow-overlap": true
         }
+
+
+
     });
-    
+    var newsFetch = newsOnLoad()
+        .then(function (newsFetch) {
+            console.log(newsFetch);
+        });
+
     //disable double click zoom
     map.doubleClickZoom.disable();
     // Functie die het klikken op de map regelt
@@ -57,24 +64,26 @@ map.on('load', function () {
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
-        var iconFeatures = map.queryRenderedFeatures(e.point, {layers:  ['mh-17']});
+        var iconFeatures = map.queryRenderedFeatures(e.point, {
+            layers: ['mh-17']
+        });
         console.log("features: " + JSON.stringify(features));
         console.log("iconFeatures " + JSON.stringify(iconFeatures));
-        
-        
+
+
         if (iconFeatures.length > 0) {
             console.log("in de if statement");
             createPopup(map, e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'");
         } else {
-            
-        
-  
-        newsByCountry(features)
-            .then(function (articles) {
-                createPopup(map, e, articles[0].title);
-            });
+
+
+
+            newsByCountry(features)
+                .then(function (articles) {
+                    createPopup(map, e, articles[0].title);
+                });
         }
-            
+
     });
 
     map.on('dblclick', function (e) {
