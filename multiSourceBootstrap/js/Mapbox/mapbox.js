@@ -73,14 +73,15 @@ map.on('load', function () {
 
         if (iconFeatures.length > 0) {
             console.log("in de if statement");
-            createPopup(map, e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'");
+            createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
+            icon(map, e);
         } else {
 
 
 
             newsByCountry(features)
                 .then(function (articles) {
-                    createPopup(map, e, articles[0].title);
+                    createPopup(e, articles[0].title, map);
                 });
         }
 
@@ -110,6 +111,53 @@ map.on('load', function () {
     });
 });
 
+var markerGeoJSON = {
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "message": "МО России: В Гааге подтвердили, что MH17 сбили из «Бука» ПВО Украины",
+                "iconSize": [60, 60]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    37.621407,
+                    55.754700
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "message": "JIT confirms: The missle that took down MH-17 was of russian origin",
+                "iconSize": [50, 50]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    150.945667,
+                    -33.809140
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "message": "Baz",
+                "iconSize": [40, 40]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -63.29223632812499,
+                    -18.28151823530889
+                ]
+            }
+        }
+    ]
+};
 
 
 var popupOptions = {
@@ -118,11 +166,44 @@ var popupOptions = {
 };
 var popup = new mapboxgl.Popup(popupOptions);
 
-function createPopup(map, e, text) {
-    popup.addTo(map)
-        .setLngLat(e.lngLat)
-        .setHTML("<p>" + text + "</p>");
+
+function createPopup(e, text, map) {
+    if (map) {
+        popup.addTo(map)
+                .setLngLat(e.lngLat)
+                .setHTML("<p>" + text + "</p>");
+    } else {
+        var markerPopup = new mapboxgl.Popup(popupOptions);
+        markerPopup.setHTML("<p>" + text + "</p>");
+        return markerPopup;
+    }
 }
+
+function icon(map, e) {
+    createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
+    //loopje om alle markers te maken
+    markerGeoJSON.features.forEach(function (marker) {
+        console.log("doet weer shit met markers");
+        //creëert een divje om de markers in te definiëren
+        var el = document.createElement('div');
+        el.className = 'marker';
+        el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
+        el.style.width = marker.properties.iconSize[0] + 'px';
+        el.style.height = marker.properties.iconSize[1] + 'px';
+        //verplaatst de markers enigszins om de markers goed op de kaart te laten zien
+        var markerOffsetX = marker.properties.iconSize[0] * -1;
+        var markerOffsetY = marker.properties.iconSize[1] * -1;
+        
+        //creëert een popup voor iedere marker
+        var markerPopup = createPopup(marker.geometry.coordinates, marker.properties.message);
+        // add marker to map
+        new mapboxgl.Marker(el, {offset: [markerOffsetX / 2, markerOffsetY]})
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(map)
+                .setPopup(markerPopup);
+                
+    });
+    }
 
 
 // map.addLayer({
