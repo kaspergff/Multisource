@@ -22,6 +22,24 @@ map.on('load', function () {
             "fill-opacity": 0
         }
     });
+    
+    map.addLayer({
+        'id': 'line-animation',
+        'type': 'line',
+        'source': {
+            'type': 'geojson',
+            'data': lineGeojson
+        },
+        'layout': {
+            'line-cap': 'round',
+            'line-join': 'round'
+        },
+        'paint': {
+            'line-color': '#ed6498',
+            'line-width': 5,
+            'line-opacity': .8
+        }
+    });
 
     map.addLayer({
         "id": "mh-17",
@@ -112,7 +130,7 @@ var markerGeoJSON = {
             "type": "Feature",
             "properties": {
                 "message": "МО России: В Гааге подтвердили, что MH17 сбили из «Бука» ПВО Украины",
-                "iconSize": [60, 60]
+                "iconSize": [32, 32]
             },
             "geometry": {
                 "type": "Point",
@@ -126,7 +144,7 @@ var markerGeoJSON = {
             "type": "Feature",
             "properties": {
                 "message": "JIT confirms: The missle that took down MH-17 was of russian origin",
-                "iconSize": [50, 50]
+                "iconSize": [32, 32]
             },
             "geometry": {
                 "type": "Point",
@@ -139,7 +157,7 @@ var markerGeoJSON = {
             "type": "Feature",
             "properties": {
                 "message": "Baz",
-                "iconSize": [40, 40]
+                "iconSize": [32, 32]
             },
             "geometry": {
                 "type": "Point",
@@ -149,6 +167,18 @@ var markerGeoJSON = {
     ]
 };
 
+var lineGeojson = {
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                [5, 52.931567]
+            ]
+        }
+    }]
+};
 
 var popupOptions = {
     closeButton: true,
@@ -157,6 +187,11 @@ var popupOptions = {
 var popup = new mapboxgl.Popup(popupOptions);
 
 var markerFeatures = [];
+var speedFactor = 30; // number of frames per longitude degree
+var animation; // to store and cancel the animation
+var startTime = 0;
+var progress = 0; // progress = timestamp - startTime
+var resetTime = false; // indicator of whether time reset is needed for the animation
 
 function createPopup(e, text, map) {
     if (map) {
@@ -178,7 +213,6 @@ function icon(map, e) {
         //creëert een divje om de markers in te definiëren
         var el = document.createElement('div');
         el.className = 'marker';
-        el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
         el.style.width = marker.properties.iconSize[0] + 'px';
         el.style.height = marker.properties.iconSize[1] + 'px';
         //verplaatst de markers enigszins om de markers goed op de kaart te laten zien
@@ -193,11 +227,35 @@ function icon(map, e) {
                 .addTo(map)
                 .setPopup(markerPopup);
         
+        
         markerFeatures.push(marker.geometry.coordinates);
                 
     });
+    animateLine();
 }
 
+function animateLine(timestamp) {
+        if (resetTime) {
+            // resume previous progress
+            startTime = performance.now() - progress;
+            resetTime = false;
+        } else {
+            progress = timestamp - startTime;
+        }
+
+        
+        
+            var x = progress / speedFactor;
+            // draw a sine wave with some math.
+            var y = Math.sin(x * Math.PI / 90) * 40;
+            // append new coordinates to the lineString
+            lineGeojson.features[0].geometry.coordinates.push([x, y]);
+            // then update the map
+            map.getSource('line-animation').setData(lineGeojson);
+        
+        // Request the next frame of the animation.
+        animation = requestAnimationFrame(animateLine);
+}
 
 // map.addLayer({
 //     "id": "state-borders",
