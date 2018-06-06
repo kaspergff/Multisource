@@ -14,14 +14,14 @@ function setCountryInfo(map, info, ISOa2) {
         ShowInfo = false;
     } else {
         if (ISOa2 != null) {
-            document.getElementById('map').setAttribute("style", "width:70%");
+            document.getElementById('map').setAttribute("style", "width:60%");
             document.getElementById('info').setAttribute("style", "display:block");
             var country = getCountryName(ISOa2);
             document.getElementById("countryName").innerHTML = country;
             ShowInfo = true;
         }
         if (ISOa2 == null) {
-            document.getElementById('map').setAttribute("style", "width:70%");
+            document.getElementById('map').setAttribute("style", "width:60%");
             document.getElementById('info').setAttribute("style", "display:block");
             document.getElementById("countryName").innerHTML = "country";
             ShowInfo = true;
