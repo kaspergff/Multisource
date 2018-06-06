@@ -74,8 +74,6 @@ map.on('load', function () {
             console.log("in de if statement");
             createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
             icon(map, e);
-        } else if (e.point === markerFeatures[0] || markerFeatures[1] || markerFeatures[2]) {
-            console.log("marker geklikt");
         } else {
             newsByCountry(features)
                 .then(function (articles) {
@@ -154,7 +152,7 @@ var markerGeoJSON = {
 
 var popupOptions = {
     closeButton: true,
-    closeOnClick: true
+    closeOnClick: false
 };
 var popup = new mapboxgl.Popup(popupOptions);
 
