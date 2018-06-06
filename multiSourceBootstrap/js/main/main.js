@@ -18,6 +18,7 @@ function setCountryInfo(map, info, ISOa2) {
             document.getElementById('info').setAttribute("style", "display:block");
             var country = getCountryName(ISOa2);
             document.getElementById("countryName").innerHTML = country;
+            setInfo(ISOa2);
             ShowInfo = true;
         }
         if (ISOa2 == null) {
@@ -46,6 +47,19 @@ function updateCountryName(ISOa2) {
     document.getElementById("countryName").innerHTML = country;
 }
 
-function getTitle(a, i){
+function getTitle(a, i) {
     return a[i].title;
+}
+
+
+function setInfo(input) {
+    document.getElementById("countryName").innerHTML = landeinfo[input].Country;
+    document.getElementById("Flag").innerHTML = landeinfo[input].Flag;
+    document.getElementById("Official_Language").innerHTML = landeinfo[input].Official_Language;
+    document.getElementById("Main_Religion").innerHTML = landeinfo[input].Main_Religion;
+    document.getElementById("Population").innerHTML = landeinfo[input].Population;
+    document.getElementById("Government").innerHTML = landeinfo[input].Government;
+    document.getElementById("Head_Of_State").innerHTML = landeinfo[input].Head_Of_State;
+    document.getElementById("GDP_Per_Capita").innerHTML = landeinfo[input].GDP_Per_Capita;
+    document.getElementById("HDI").innerHTML = landeinfo[input].HDI;
 }

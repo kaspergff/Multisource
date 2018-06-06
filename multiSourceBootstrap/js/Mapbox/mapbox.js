@@ -107,7 +107,6 @@ map.on('load', function () {
 
         var sw = new mapboxgl.LngLat(featuresBBOX[0].geometry.coordinates[0][3][0], featuresBBOX[0].geometry.coordinates[0][3][1]);
         var ne = new mapboxgl.LngLat(featuresBBOX[0].geometry.coordinates[0][1][0], featuresBBOX[0].geometry.coordinates[0][1][1]);
-
         var llb = new mapboxgl.LngLatBounds(sw, ne);
         map.fitBounds(llb);
 
@@ -118,39 +117,16 @@ map.on('load', function () {
         });
 
         // If statement die de regelen welke popups / markers getoont moeten worden
-        if (iconFeatures.length > 0) {
-            console.log("in de if statement");
-            createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
-            icon(map, e);
-        } else {
-            newsByCountry(features)
-                .then(function (articles) {
-                    createPopup(e, articles[0].title, map);
-                });
-        }
-    });
-
-    map.on('dblclick', function (e) {
-        var features = map.queryRenderedFeatures(e.point, {
-            layers: ["state-fills"]
-        });
-        var ISOa2;
-        // ISOa2 afkorting van het land
-        newISOa2 = isoA2(features);
-
-        if (ISOa2 !== newISOa2) {
-            ISOa2 = newISOa2;
-            updateCountryName(ISOa2);
-        }
-
-        if (ShowInfo === false) {
-            setCountryInfo(map, info, ISOa2);
-            ShowInfo = true;
-        }
-        newsByCountry(features)
-            .then(function (articles) {
-                console.log(articles);
-            });
+        // if (iconFeatures.length > 0) {
+        //     console.log("in de if statement");
+        //     createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
+        //     icon(map, e);
+        // } else {
+        //     newsByCountry(features)
+        //         .then(function (articles) {
+        //             createPopup(e, articles[0].title, map);
+        //         });
+        // }
     });
 });
 
@@ -265,13 +241,12 @@ function icon(map, e) {
     });
     animateLine();
 }
-
+var ISOa2;
 function showCountryScherm(features) {
-    var ISOa2;
     // ISOa2 afkorting van het land
     newISOa2 = isoA2(features);
 
-    if (ISOa2 !== newISOa2) {
+    if (ISOa2 !== newISOa2 && newISOa2) {
         ISOa2 = newISOa2;
         updateCountryName(ISOa2);
     }
@@ -280,10 +255,6 @@ function showCountryScherm(features) {
         setCountryInfo(map, info, ISOa2);
         ShowInfo = true;
     }
-    newsByCountry(features)
-        .then(function (articles) {
-            console.log(articles);
-        });
 }
 
 function animateLine(timestamp) {
