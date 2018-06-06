@@ -69,13 +69,14 @@ map.on('load', function () {
         });
         
 
+        // If statement die de regelen welke popups / markers getoont moeten worden
         if (iconFeatures.length > 0) {
             console.log("in de if statement");
             createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
             icon(map, e);
+        } else if (e.point === markerFeatures[0] || markerFeatures[1] || markerFeatures[2]) {
+            console.log("marker geklikt");
         } else {
-
-
 
             newsByCountry(features)
                 .then(function (articles) {
@@ -164,6 +165,7 @@ var popupOptions = {
 };
 var popup = new mapboxgl.Popup(popupOptions);
 
+var markerFeatures = [];
 
 function createPopup(e, text, map) {
     if (map) {
@@ -199,6 +201,8 @@ function icon(map, e) {
                 .setLngLat(marker.geometry.coordinates)
                 .addTo(map)
                 .setPopup(markerPopup);
+        
+        markerFeatures.push(marker.geometry.coordinates);
                 
     });
     }
