@@ -67,9 +67,7 @@ map.on('load', function () {
         var iconFeatures = map.queryRenderedFeatures(e.point, {
             layers: ['mh-17']
         });
-        console.log("features: " + JSON.stringify(features));
-        console.log("iconFeatures " + JSON.stringify(iconFeatures));
-
+        
 
         if (iconFeatures.length > 0) {
             console.log("in de if statement");
@@ -197,7 +195,7 @@ function icon(map, e) {
         //creëert een popup voor iedere marker
         var markerPopup = createPopup(marker.geometry.coordinates, marker.properties.message);
         // add marker to map
-        new mapboxgl.Marker(el, {offset: [markerOffsetX / 2, markerOffsetY]})
+        new mapboxgl.Marker(el, {offset: [markerOffsetX / 2, markerOffsetY / 2]})
                 .setLngLat(marker.geometry.coordinates)
                 .addTo(map)
                 .setPopup(markerPopup);
