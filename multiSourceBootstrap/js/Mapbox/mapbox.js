@@ -5,11 +5,17 @@ var map = new mapboxgl.Map({
     center: [-0, 37.830348],
     zoom: 1.5
 });
+var bounds = new mapboxgl.LngLatBounds();
 
 map.on('load', function () {
     map.addSource("states", {
         "type": "geojson",
         "data": "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
+    });
+
+    map.addSource("bbox", {
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/azurro/country-bounding-boxes/master/boxes.geojson"
     });
 
     map.addLayer({
@@ -19,6 +25,17 @@ map.on('load', function () {
         "layout": {},
         "paint": {
             // "fill-color": "#627BC1",
+            "fill-opacity": 0
+        }
+    });
+
+    map.addLayer({
+        "id": "bbox-fills",
+        "type": "fill",
+        "source": "bbox",
+        "layout": {},
+        "paint": {
+            "fill-color": "#627BC1",
             "fill-opacity": 0
         }
     });
@@ -64,10 +81,23 @@ map.on('load', function () {
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
+        showCountryScherm(features);
+
+        var featuresBBOX = map.queryRenderedFeatures(e.point, {
+            layers: ["bbox-fills"]
+        });
+
+        var sw = new mapboxgl.LngLat(featuresBBOX[0].geometry.coordinates[0][3][0], featuresBBOX[0].geometry.coordinates[0][3][1]);
+        var ne = new mapboxgl.LngLat(featuresBBOX[0].geometry.coordinates[0][1][0], featuresBBOX[0].geometry.coordinates[0][1][1]);
+
+        var llb = new mapboxgl.LngLatBounds(sw, ne);
+        map.fitBounds(llb);
+
+
+
         var iconFeatures = map.queryRenderedFeatures(e.point, {
             layers: ['mh-17']
         });
-        
 
         // If statement die de regelen welke popups / markers getoont moeten worden
         if (iconFeatures.length > 0) {
@@ -188,14 +218,36 @@ function icon(map, e) {
         //creëert een popup voor iedere marker
         var markerPopup = createPopup(marker.geometry.coordinates, marker.properties.message);
         // add marker to map
-        new mapboxgl.Marker(el, {offset: [markerOffsetX / 2, markerOffsetY / 2]})
-                .setLngLat(marker.geometry.coordinates)
-                .addTo(map)
-                .setPopup(markerPopup);
-        
+        new mapboxgl.Marker(el, {
+                offset: [markerOffsetX / 2, markerOffsetY / 2]
+            })
+            .setLngLat(marker.geometry.coordinates)
+            .addTo(map)
+            .setPopup(markerPopup);
+
         markerFeatures.push(marker.geometry.coordinates);
-                
+
     });
+}
+
+function showCountryScherm(features) {
+    var ISOa2;
+    // ISOa2 afkorting van het land
+    newISOa2 = isoA2(features);
+
+    if (ISOa2 !== newISOa2) {
+        ISOa2 = newISOa2;
+        updateCountryName(ISOa2);
+    }
+
+    if (ShowInfo === false) {
+        setCountryInfo(map, info, ISOa2);
+        ShowInfo = true;
+    }
+    newsByCountry(features)
+        .then(function (articles) {
+            console.log(articles);
+        });
 }
 
 
