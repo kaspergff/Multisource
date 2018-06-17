@@ -99,7 +99,8 @@ map.on('load', function () {
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
-        showCountryScherm(features);
+
+        console.log(features);
 
         var featuresBBOX = map.queryRenderedFeatures(e.point, {
             layers: ["bbox-fills"]
@@ -109,8 +110,8 @@ map.on('load', function () {
         var ne = new mapboxgl.LngLat(featuresBBOX[0].geometry.coordinates[0][1][0], featuresBBOX[0].geometry.coordinates[0][1][1]);
         var llb = new mapboxgl.LngLatBounds(sw, ne);
         map.fitBounds(llb);
-
-
+        showCountryScherm(features);
+        setInfo(isoA2(features));
 
         var iconFeatures = map.queryRenderedFeatures(e.point, {
             layers: ['mh-17']
@@ -242,6 +243,7 @@ function icon(map, e) {
     animateLine();
 }
 var ISOa2;
+
 function showCountryScherm(features) {
     // ISOa2 afkorting van het land
     newISOa2 = isoA2(features);
