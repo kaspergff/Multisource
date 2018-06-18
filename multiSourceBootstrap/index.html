@@ -21,7 +21,11 @@
     <link href="css/main.css" rel="stylesheet" />
 
     <script src='js/Mapbox/landeninfo.js'></script>
+    <script src="js/Mapbox/locations.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.min.css"
+    />
 
 </head>
 
@@ -87,8 +91,16 @@
             <p id="GDP_Per_Capita">Test</p>
             <p id="HDI">Test</p>
         </div>
-        <div id='map' class='container-fluid'></div>
+        <div id='map' class='container-fluid'>
+
+        </div>
+
     </div>
+    <div id='slidebar'>
+        <input id="ex8" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="30"
+        />
+    </div>
+
 
 </body>
 

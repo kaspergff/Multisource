@@ -17,7 +17,6 @@ map.on('load', function () {
         "type": "geojson",
         "data": "https://raw.githubusercontent.com/azurro/country-bounding-boxes/master/boxes.geojson"
     });
-
     map.addLayer({
         "id": "state-fills",
         "type": "fill",
@@ -48,17 +47,6 @@ map.on('load', function () {
     });
 
     map.addLayer({
-        "id": "bbox-fills",
-        "type": "fill",
-        "source": "bbox",
-        "layout": {},
-        "paint": {
-            "fill-color": "#627BC1",
-            "fill-opacity": 0
-        }
-    });
-
-    map.addLayer({
         "id": "mh-17",
         "type": "symbol",
         "source": {
@@ -69,7 +57,7 @@ map.on('load', function () {
                     "type": "Feature",
                     "properties": {
                         "description": "BLABLABLABLA",
-                        "icon": "theatre"
+                        "icon": "marker"
                     },
                     "geometry": {
                         "type": "Point",
@@ -82,10 +70,19 @@ map.on('load', function () {
             "icon-image": "{icon}-15",
             "icon-allow-overlap": true
         }
-
-
-
     });
+
+    map.addLayer({
+        "id": "bbox-fills",
+        "type": "fill",
+        "source": "bbox",
+        "layout": {},
+        "paint": {
+            "fill-color": "#627BC1",
+            "fill-opacity": 0
+        }
+    });
+
     var newsFetch = newsOnLoad()
         .then(function (newsFetch) {
             console.log(newsFetch);
@@ -100,8 +97,30 @@ map.on('load', function () {
             layers: ["state-fills"]
         });
 
-        console.log(features);
+        var iconFeatures = map.queryRenderedFeatures(e.point, {
+            layers: ['mh-17']
+        });
 
+        //If statement die de regelen welke popups / markers getoont moeten worden
+        if (iconFeatures.length > 0) {
+            console.log("in de if statement");
+            createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
+            icon(map, e);
+            //drawline(map);
+        } else {
+            newsByCountry(features)
+                .then(function (articles) {
+                    //createPopup(e, articles[0].title, map);
+                });
+        }
+    });
+
+    map.on("dblclick", function (e) {
+        drawPoint(map);
+
+        var features = map.queryRenderedFeatures(e.point, {
+            layers: ["state-fills"]
+        });
         var featuresBBOX = map.queryRenderedFeatures(e.point, {
             layers: ["bbox-fills"]
         });
@@ -112,23 +131,9 @@ map.on('load', function () {
         map.fitBounds(llb);
         showCountryScherm(features);
         setInfo(isoA2(features));
-
-        var iconFeatures = map.queryRenderedFeatures(e.point, {
-            layers: ['mh-17']
-        });
-
-        // If statement die de regelen welke popups / markers getoont moeten worden
-        // if (iconFeatures.length > 0) {
-        //     console.log("in de if statement");
-        //     createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
-        //     icon(map, e);
-        // } else {
-        //     newsByCountry(features)
-        //         .then(function (articles) {
-        //             createPopup(e, articles[0].title, map);
-        //         });
-        // }
     });
+
+
 });
 
 var markerGeoJSON = {
@@ -212,6 +217,37 @@ function createPopup(e, text, map) {
     }
 }
 
+function drawPoint(map) {
+    map.addLayer({
+        "id": "points",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": locations.features[2].geometry.coordinates
+                    },
+                    "properties": {
+                        "icon": "monument"
+                    }
+                }]
+            }
+        },
+        "layout": {
+            "icon-image": "{icon}-15",
+            "text-field": "{title}",
+            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            "text-offset": [0, 0.6],
+            "text-anchor": "top"
+        }
+    });
+
+}
+
 function icon(map, e) {
     createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
     //loopje om alle markers te maken
@@ -240,7 +276,7 @@ function icon(map, e) {
         markerFeatures.push(marker.geometry.coordinates);
 
     });
-    animateLine();
+    //animateLine();
 }
 var ISOa2;
 
@@ -267,9 +303,6 @@ function animateLine(timestamp) {
     } else {
         progress = timestamp - startTime;
     }
-
-
-
     var x = progress / speedFactor;
     // draw a sine wave with some math.
     var y = Math.sin(x * Math.PI / 90) * 40;
@@ -281,6 +314,40 @@ function animateLine(timestamp) {
     // Request the next frame of the animation.
     animation = requestAnimationFrame(animateLine);
 }
+
+
+function drawline(map) {
+    map.addLayer({
+        "id": "route",
+        "type": "line",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                        [5, 52.931567],
+                        [37.621407, 55.754700],
+                        [5, 52.931567],
+                        [150.945667, -33.809140],
+                        [5, 52.931567],
+                        [-63.29223632812499, -18.28151823530889]
+                    ]
+                }
+            }
+        },
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": "#ed6498",
+            "line-width": 4
+        }
+    });
+};
 
 // map.addLayer({
 //     "id": "state-borders",

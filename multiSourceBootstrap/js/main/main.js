@@ -63,3 +63,7 @@ function setInfo(input) {
     document.getElementById("GDP_Per_Capita").innerHTML = landeinfo[input].GDP_Per_Capita;
     document.getElementById("HDI").innerHTML = landeinfo[input].HDI;
 }
+
+var slider = new Slider("#ex8", {
+	tooltip: 'always'
+});
