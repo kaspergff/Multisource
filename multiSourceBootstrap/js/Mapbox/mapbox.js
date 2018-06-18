@@ -217,6 +217,8 @@ function createPopup(e, text, map) {
     }
 }
 
+
+// functie om punten te tekenen op de kaart 
 function drawPoint(map) {
     map.addLayer({
         "id": "points",
@@ -276,7 +278,7 @@ function icon(map, e) {
         markerFeatures.push(marker.geometry.coordinates);
 
     });
-    //animateLine();
+    animateLine();
 }
 var ISOa2;
 
