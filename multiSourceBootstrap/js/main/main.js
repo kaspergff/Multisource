@@ -51,19 +51,24 @@ function getTitle(a, i) {
     return a[i].title;
 }
 
-
 function setInfo(input) {
     document.getElementById("countryName").innerHTML = landeinfo[input].Country;
-    document.getElementById("Flag").innerHTML = landeinfo[input].Flag;
-    document.getElementById("Official_Language").innerHTML = landeinfo[input].Official_Language;
-    document.getElementById("Main_Religion").innerHTML = landeinfo[input].Main_Religion;
-    document.getElementById("Population").innerHTML = landeinfo[input].Population;
-    document.getElementById("Government").innerHTML = landeinfo[input].Government;
-    document.getElementById("Head_Of_State").innerHTML = landeinfo[input].Head_Of_State;
-    document.getElementById("GDP_Per_Capita").innerHTML = landeinfo[input].GDP_Per_Capita;
-    document.getElementById("HDI").innerHTML = landeinfo[input].HDI;
+    document.getElementById("Flag").src = landeinfo[input].Flag;
+    document.getElementById("Capital").innerHTML = "Capital: " + landeinfo[input].Capital;
+    document.getElementById("Official_Language").innerHTML = "Official language: " + landeinfo[input].Official_Language;
+    document.getElementById("Main_Religion").innerHTML = "Main religion: " + landeinfo[input].Main_Religion;
+    document.getElementById("Population").innerHTML = "Population: " + landeinfo[input].Population;
+    document.getElementById("Government").innerHTML = "Government: " + landeinfo[input].Government;
+    document.getElementById("Head_Of_State").innerHTML = "Head of state: " + landeinfo[input].Head_Of_State;
+    document.getElementById("GDP_Per_Capita").innerHTML = "GDP per capita: " + landeinfo[input].GDP_Per_Capita;
+    document.getElementById("HDI").innerHTML = "HDI: " + landeinfo[input].HDI;
 }
 
 var slider = new Slider("#ex8", {
-	tooltip: 'always'
+    tooltip: 'always'
 });
+
+// slider.on("slide", function () {
+//     removePoints(10);
+//     drawPoint(10);
+// });

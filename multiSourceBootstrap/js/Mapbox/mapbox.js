@@ -83,6 +83,8 @@ map.on('load', function () {
         }
     });
 
+    drawPoint(10);
+
     var newsFetch = newsOnLoad()
         .then(function (newsFetch) {
             console.log(newsFetch);
@@ -116,8 +118,6 @@ map.on('load', function () {
     });
 
     map.on("dblclick", function (e) {
-        drawPoint(map);
-
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
@@ -216,39 +216,48 @@ function createPopup(e, text, map) {
         return markerPopup;
     }
 }
-
+// functie haalt de random punten van de map.
+function removePoints(index) {
+    for (let i = 0; i < index; i++) {
+        if (map.getLayer("points" + i)) {
+            map.removeSource("points" + i)
+        }
+    }
+}
 
 // functie om punten te tekenen op de kaart 
-function drawPoint(map) {
-    map.addLayer({
-        "id": "points",
-        "type": "symbol",
-        "source": {
-            "type": "geojson",
-            "data": {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": locations.features[2].geometry.coordinates
-                    },
-                    "properties": {
-                        "icon": "monument"
-                    }
-                }]
+function drawPoint(index) {
+    for (let i = 0; i < index; i++) {
+        map.addLayer({
+            "id": "points" + i,
+            "type": "symbol",
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "FeatureCollection",
+                    "features": [{
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                        },
+                        "properties": {
+                            "icon": "marker"
+                        }
+                    }]
+                }
+            },
+            "layout": {
+                "icon-image": "{icon}-15",
+                "text-field": "{title}",
+                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                "text-offset": [0, 0.6],
+                "text-anchor": "top"
             }
-        },
-        "layout": {
-            "icon-image": "{icon}-15",
-            "text-field": "{title}",
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top"
-        }
-    });
-
+        });
+    }
 }
+
 
 function icon(map, e) {
     createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
@@ -273,8 +282,6 @@ function icon(map, e) {
             .setLngLat(marker.geometry.coordinates)
             .addTo(map)
             .setPopup(markerPopup);
-
-
         markerFeatures.push(marker.geometry.coordinates);
 
     });
