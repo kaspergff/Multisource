@@ -43,6 +43,9 @@ function isoA2(features) {
             }
         }
     }
+    else{
+        ISOa2 = "us";
+    }
     return ISOa2;
 }
 

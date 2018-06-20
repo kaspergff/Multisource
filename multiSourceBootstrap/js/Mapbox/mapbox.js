@@ -83,12 +83,13 @@ map.on('load', function () {
         }
     });
 
-    drawPoint(10);
+    drawPoint(1);
 
     var newsFetch = newsOnLoad()
         .then(function (newsFetch) {
             console.log(newsFetch);
         });
+
 
     //disable double click zoom
     map.doubleClickZoom.disable();
@@ -103,12 +104,23 @@ map.on('load', function () {
             layers: ['mh-17']
         });
 
+        var randomFeatures = map.queryRenderedFeatures(e.point, {
+            layers: ['points0']
+        });
+
         //If statement die de regelen welke popups / markers getoont moeten worden
         if (iconFeatures.length > 0) {
             console.log("in de if statement");
+            removePoints();
             createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
             icon(map, e);
             //drawline(map);
+        } else if (randomFeatures.length > 0) {
+            console.log("raak");
+            newsByCountry(features)
+                .then(function (articles) {
+                    createPopup(e, articles[0].title, map);
+                });
         } else {
             newsByCountry(features)
                 .then(function (articles) {
@@ -121,6 +133,7 @@ map.on('load', function () {
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
+
         var featuresBBOX = map.queryRenderedFeatures(e.point, {
             layers: ["bbox-fills"]
         });
@@ -217,12 +230,8 @@ function createPopup(e, text, map) {
     }
 }
 // functie haalt de random punten van de map.
-function removePoints(index) {
-    for (let i = 0; i < index; i++) {
-        if (map.getLayer("points" + i)) {
-            map.removeSource("points" + i)
-        }
-    }
+function removePoints() {
+    map.removeLayer("points0")
 }
 
 // functie om punten te tekenen op de kaart 
@@ -236,15 +245,106 @@ function drawPoint(index) {
                 "data": {
                     "type": "FeatureCollection",
                     "features": [{
-                        "type": "Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
                         },
-                        "properties": {
-                            "icon": "marker"
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
                         }
-                    }]
+                    ]
                 }
             },
             "layout": {
