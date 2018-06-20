@@ -387,7 +387,7 @@ function icon(map, e) {
         markerFeatures.push(marker.geometry.coordinates);
 
     });
-    drawLine();
+    drawLine([[5, 52.931567], [37.621407, 55.754700], [150.945667, -33.809140]]);
 }
 var ISOa2;
 
@@ -406,7 +406,8 @@ function showCountryScherm(features) {
     }
 }
 
-function drawLine() {
+function drawLine(coordinates) {
+    for (let i = 0; i < coordinates.length; i++) {
     map.addLayer({
         "id": "route",
         "type": "line",
@@ -417,11 +418,7 @@ function drawLine() {
                 "properties": {},
                 "geometry": {
                     "type": "LineString",
-                    "coordinates": [
-                        [5, 52.931567],
-                        [37.621407, 55.754700],
-                        [150.945667, -33.809140]
-                    ]
+                    "coordinates": coordinates
                 }
             }
         },
@@ -434,6 +431,7 @@ function drawLine() {
             "line-width": 8
         }
     });
+}
 }
 
 
