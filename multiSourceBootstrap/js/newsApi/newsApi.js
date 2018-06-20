@@ -9,8 +9,9 @@ function makeCountryURL(country) {
 }
 
 async function newsOnLoad() {
-    //const url = "https://newsapi.org/v2/everything?q=" + q + "&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
-    const url = "https://newsapi.org/v2/sources?language=en&category=general&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
+    //const url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
+    const url = "https://newsapi.org/v2/everything?q=bitcoin&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
+    //const url = "https://newsapi.org/v2/sources?language=en&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
     var req = new Request(url);
     let news = await fetch(req);
     let json = await news.json();

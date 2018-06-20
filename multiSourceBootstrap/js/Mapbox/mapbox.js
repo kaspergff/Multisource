@@ -119,7 +119,9 @@ map.on('load', function () {
             console.log("raak");
             newsByCountry(features)
                 .then(function (articles) {
-                    createPopup(e, articles[0].title, map);
+                    createPopup(e, articles[0].title, map),
+                    console.log(features),
+                    localStorage.setItem("features", features);
                 });
         } else {
             newsByCountry(features)
@@ -222,10 +224,10 @@ function createPopup(e, text, map) {
     if (map) {
         popup.addTo(map)
             .setLngLat(e.lngLat)
-            .setHTML("<p>" + text + "</p>");
+            .setHTML("<a href=\"./pages/article.html\">" + text + "</a>");
     } else {
         var markerPopup = new mapboxgl.Popup(popupOptions);
-        markerPopup.setHTML("<p>" + text + "</p>");
+        markerPopup.setHTML("<a href=\"https://www.w3schools.com/html/\">" + text + "</a>");
         return markerPopup;
     }
 }
