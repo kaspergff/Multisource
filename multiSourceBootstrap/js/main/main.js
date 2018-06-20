@@ -69,6 +69,6 @@ var slider = new Slider("#ex8", {
 });
 
 // slider.on("slide", function () {
-//     removePoints(10);
-//     drawPoint(10);
+//     removePoints();
+//     drawPoint(1);
 // });

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>MultiSource</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">MultiSource</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../index.html">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main ml-1">content div
+        <div class="row ml-1">
+            <div class="row">
+                <div class="col-md-4 offset-xl-0" id="article">
+                    <article>Article
+                        <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac nulla suscipit, euismod magna
+                        eu, volutpat sem. Donec vel scelerisque nisi, non sagittis orci. Nullam vestibulum id sapien quis
+                        consectetur. Curabitur aliquam sed augue eget faucibus. Vestibulum at efficitur diam. Suspendisse
+                        nec elementum mi, non venenatis turpis. In nulla mi, convallis mollis gravida sed, feugiat vitae
+                        neque. Suspendisse venenatis elit eget turpis rhoncus vestibulum. Pellentesque sollicitudin ligula
+                        leo, eu posuere eros dignissim tempus. Sed in faucibus arcu, ut suscipit felis. Duis sed mi est.
+                        Ut massa diam, pharetra a convallis eu, vulputate ac elit. </article>
+
+                    <div class=".col-4 mt-5" id="comments"> comments</div>
+                </div>
+
+                <div class="col-md-4" id="othersource"> andere bronnen
+                    <br>bron
+                    <br>bron
+                    <br>bron
+
+                    <div class=".col-4 mt-5" id="artikelinfo"> informatie over artikel</div>
+                    <div class=".col-4 mt-5" id="advertisements"> advertenties</div>
+
+                </div>
+
+                <div class="col-md-4" id="othernews"> ander nieuws</div>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- newsApi code -->
+<script src="../js/newsApi/newsApi.js"></script>
+
+<!-- Main js -->
+<script src="../js/main/main.js"></script>
+<script>
+    var newsFetch = newsOnLoad()
+        .then(function (newsFetch) {
+            console.log(newsFetch);
+        });
+
+
+    function setArticlesOnPage() {
+        document.getElementById("article").innerHTML = newsFetch[0].Country;
+        document.getElementById("Flag").src = landeinfo[input].Flag;
+    }
+</script>
+
+</html>
