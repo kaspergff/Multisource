@@ -285,7 +285,7 @@ function icon(map, e) {
         markerFeatures.push(marker.geometry.coordinates);
 
     });
-    animateLine();
+    drawLine();
 }
 var ISOa2;
 
@@ -304,24 +304,34 @@ function showCountryScherm(features) {
     }
 }
 
-function animateLine(timestamp) {
-    if (resetTime) {
-        // resume previous progress
-        startTime = performance.now() - progress;
-        resetTime = false;
-    } else {
-        progress = timestamp - startTime;
-    }
-    var x = progress / speedFactor;
-    // draw a sine wave with some math.
-    var y = Math.sin(x * Math.PI / 90) * 40;
-    // append new coordinates to the lineString
-    lineGeojson.features[0].geometry.coordinates.push([x, y]);
-    // then update the map
-    map.getSource('line-animation').setData(lineGeojson);
-
-    // Request the next frame of the animation.
-    animation = requestAnimationFrame(animateLine);
+function drawLine() {
+    map.addLayer({
+        "id": "route",
+        "type": "line",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                        [5, 52.931567],
+                        [37.621407, 55.754700],
+                        [150.945667, -33.809140]
+                    ]
+                }
+            }
+        },
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": "#888",
+            "line-width": 8
+        }
+    });
 }
 
 
