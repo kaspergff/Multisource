@@ -46,3 +46,81 @@ body {
   left: 50%;
   margin-left: -150px;
 }
+
+#login-dp {
+  min-width: 250px;
+  padding: 14px 14px 0;
+  overflow: hidden;
+  /* background-color: rgba(255, 255, 255, .8); */
+  background-color: #343a40;;
+  color: #fff;
+}
+
+#login-dp .help-block {
+  font-size: 12px
+}
+
+#login-dp .bottom {
+  /* background-color: rgba(255, 255, 255, .8); */
+  background-color: #343a40;;
+  /* border-top: 1px solid #ddd; */
+  clear: both;
+  padding: 14px;
+}
+
+#login-dp .social-buttons {
+  margin: 12px 0
+}
+
+#login-dp .social-buttons a {
+  width: 49%;
+}
+
+#login-dp .form-group {
+  margin-bottom: 10px;
+}
+
+.btn-fb {
+  color: #fff;
+  background-color: #3b5998;
+}
+
+.btn-fb:hover {
+  color: #fff;
+  background-color: #496ebc
+}
+
+.btn-tw {
+  color: #fff;
+  background-color: #55acee;
+}
+
+.btn-tw:hover {
+  color: #fff;
+  background-color: #59b5fa;
+}
+
+@media(max-width:100%) {
+  #login-dp {
+    background-color: #343a40;;
+    color: #fff;
+  }
+  #login-dp .bottom {
+    background-color: #343a40;
+    /* border-top: 0 none; */
+  }
+}
+
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+.marker {
+  background-image: url("images/map-marker.png");
+  display: block;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+}

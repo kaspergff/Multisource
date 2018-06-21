@@ -16,28 +16,73 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="../index.html">MultiSource</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MultiSource</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../index.html">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Services</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
+                    </li> -->
+                    <li class="dropdown nav-item">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            <b>Login</b>
+                            <span class="caret"></span>
+                        </a>
+                        <ul id="login-dp" class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        Login via
+                                        <div class="social-buttons">
+                                            <a href="#" class="btn btn-fb">
+                                                <i class="fa fa-facebook"></i> Facebook</a>
+                                            <a href="#" class="btn btn-tw">
+                                                <i class="fa fa-twitter"></i> Twitter</a>
+                                        </div>
+                                        or
+                                        <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                                <div class="help-block text-right">
+                                                    <a href="">Forget the password ?</a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"> keep me logged-in
+                                                </label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="bottom text-center">
+                                        New here ?
+                                        <a href="#">
+                                            <b>Join Us</b>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -47,15 +92,16 @@
     <div class="main ml-1">content div
         <div class="row ml-1">
             <div class="row">
-                <div class="col-md-4 offset-xl-0" id="article">
-                    <article>Article
+                <div class="col-md-4 offset-xl-0">
+                    <p id="article">
                         <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac nulla suscipit, euismod magna
                         eu, volutpat sem. Donec vel scelerisque nisi, non sagittis orci. Nullam vestibulum id sapien quis
                         consectetur. Curabitur aliquam sed augue eget faucibus. Vestibulum at efficitur diam. Suspendisse
                         nec elementum mi, non venenatis turpis. In nulla mi, convallis mollis gravida sed, feugiat vitae
                         neque. Suspendisse venenatis elit eget turpis rhoncus vestibulum. Pellentesque sollicitudin ligula
                         leo, eu posuere eros dignissim tempus. Sed in faucibus arcu, ut suscipit felis. Duis sed mi est.
-                        Ut massa diam, pharetra a convallis eu, vulputate ac elit. </article>
+                        Ut massa diam, pharetra a convallis eu, vulputate ac elit. </p>
+
 
                     <div class=".col-4 mt-5" id="comments"> comments</div>
                 </div>
@@ -73,8 +119,6 @@
                 <div class="col-md-4" id="othernews"> ander nieuws</div>
             </div>
         </div>
-
-
     </div>
 </body>
 
@@ -89,16 +133,17 @@
 <!-- Main js -->
 <script src="../js/main/main.js"></script>
 <script>
-    var newsFetch = newsOnLoad()
+    var newsFetch = UsNews()
         .then(function (newsFetch) {
             console.log(newsFetch);
         });
 
-
-    function setArticlesOnPage() {
-        document.getElementById("article").innerHTML = newsFetch[0].Country;
-        document.getElementById("Flag").src = landeinfo[input].Flag;
-    }
+    window.onload(
+        function setArticlesOnPage() {
+            document.getElementById("article").innerHTML = newsFetch[0].source.title;
+            document.getElementById("Flag").src = landeinfo[input].Flag;
+        }
+    )
 </script>
 
 </html>

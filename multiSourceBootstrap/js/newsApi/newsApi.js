@@ -9,8 +9,8 @@ function makeCountryURL(country) {
 }
 
 async function newsOnLoad() {
-    //const url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
-    const url = "https://newsapi.org/v2/everything?q=bitcoin&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
+    const url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
+    //const url = "https://newsapi.org/v2/everything?q=bitcoin&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
     //const url = "https://newsapi.org/v2/sources?language=en&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
     var req = new Request(url);
     let news = await fetch(req);
@@ -29,6 +29,16 @@ async function newsByCountry(features) {
     let json = await news.json();
     return json.articles
 }
+async function UsNews() {
+    var country = "us";
+    var url = makeCountryURL(country);
+    var req = new Request(url);
+    let news = await fetch(req);
+    let json = await news.json();
+    return json.articles
+}
+
+
 
 // Functie geeft ISO a2 van het land waarop gelikt is
 function isoA2(features) {
