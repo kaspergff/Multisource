@@ -29,9 +29,25 @@ async function newsByCountry(features) {
     let json = await news.json();
     return json.articles
 }
-async function UsNews() {
-    var country = "us";
-    var url = makeCountryURL(country);
+async function News(input) {
+    var url = makeCountryURL(input);
+    var req = new Request(url);
+    let news = await fetch(req);
+    let json = await news.json();
+    return json.articles
+}
+
+async function GetArticle(input, pageSize) {
+    const part1 = "https://newsapi.org/v2/top-headlines?category=business&country=";
+    // const part2 = "&apiKey=c0dd3e7f7a9840528c87934d92d511e0";
+    var url = part1 + input + "&" + "pageSize=" + pageSize + "&" + APIkey;
+    var req = new Request(url);
+    let news = await fetch(req);
+    let json = await news.json();
+    return json.articles
+}
+
+async function newsUrl(url) {
     var req = new Request(url);
     let news = await fetch(req);
     let json = await news.json();
@@ -53,8 +69,7 @@ function isoA2(features) {
                 }
             }
         }
-    }
-    else{
+    } else {
         ISOa2 = "us";
     }
     return ISOa2;
@@ -69,6 +84,7 @@ function isoA2(features) {
 //             return articles
 //         });
 // }
+
 
 
 function getTitle(a, i) {

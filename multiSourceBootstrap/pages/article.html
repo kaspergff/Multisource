@@ -13,10 +13,11 @@
     <!-- Bootstrap core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/main.css" rel="stylesheet" />
+    <link href="articles.css" rel="stylesheet" />
 
 </head>
 
-<body>
+<body onload="foo()">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-inverse">
         <div class="container-fluid">
             <a class="navbar-brand" href="../index.html">MultiSource</a>
@@ -90,34 +91,92 @@
         </div>
     </nav>
 
-    <div class="main ml-1">content div
-        <div class="row ml-1">
+    <div>
+        <div >
             <div class="row">
-                <div class="col-md-4 offset-xl-0">
-                    <p id="article">
-                        <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac nulla suscipit, euismod magna
-                        eu, volutpat sem. Donec vel scelerisque nisi, non sagittis orci. Nullam vestibulum id sapien quis
-                        consectetur. Curabitur aliquam sed augue eget faucibus. Vestibulum at efficitur diam. Suspendisse
-                        nec elementum mi, non venenatis turpis. In nulla mi, convallis mollis gravida sed, feugiat vitae
-                        neque. Suspendisse venenatis elit eget turpis rhoncus vestibulum. Pellentesque sollicitudin ligula
-                        leo, eu posuere eros dignissim tempus. Sed in faucibus arcu, ut suscipit felis. Duis sed mi est.
-                        Ut massa diam, pharetra a convallis eu, vulputate ac elit. </p>
+                <div class="col-md-5" id="article">
+                    <h3 id="article-title">Title </h3>
+                    <!-- <img src="" id="article-img" height="420" width="420"> -->
+                    <p id="article-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac nulla suscipit, euismod magna eu, volutpat sem. Donec vel
+                        scelerisque nisi, non sagittis orci. Nullam vestibulum id sapien quis consectetur. Curabitur aliquam
+                        sed augue eget faucibus. Vestibulum at efficitur diam. Suspendisse nec elementum mi, non venenatis
+                        turpis. In nulla mi, convallis mollis gravida sed, feugiat vitae neque. Suspendisse venenatis elit
+                        eget turpis rhoncus vestibulum. Pellentesque sollicitudin ligula leo, eu posuere eros dignissim tempus.
+                        Sed in faucibus arcu, ut suscipit felis. Duis sed mi est. Ut massa diam, pharetra a convallis eu,
+                        vulputate ac elit. </p>
+                    <p>
+                        In nulla mi, convallis mollis gravida sed, feugiat vitae neque. Suspendisse venenatis elit eget turpis rhoncus vestibulum.
+                        Pellentesque sollicitudin ligula leo, eu posuere eros dignissim tempus. Sed in faucibus arcu, ut
+                        suscipit felis. Duis sed mi est. Ut massa diam, pharetra a convallis eu, vulputate ac elit.
+                    </p>
 
+                    <p>
+                        <a href="" id="link-to-article" target="_blank">Click here to read the full article</a>
+                    </p>
 
                     <div class=".col-4 mt-5" id="comments"> comments</div>
                 </div>
 
-                <div class="col-md-4" id="othersource"> andere bronnen
-                    <br>bron
-                    <br>bron
-                    <br>bron
-
-                    <div class=".col-4 mt-5" id="artikelinfo"> informatie over artikel</div>
+                <div class="col-md-3" id="box2">
+                    <p>
+                        <b>Other sources</b>
+                    </p>
+                    <ul>
+                        <li>
+                            <a href="" id="other-source1"></a>
+                        </li>
+                        <li>
+                            <a href="" id="other-source2"></a>
+                        </li>
+                        <li>
+                            <a href="" id="other-source3"></a>
+                        </li>
+                        <li>
+                            <a href="" id="other-source4"></a>
+                        </li>
+                        <li>
+                            <a href="" id="other-source5"></a>
+                        </li>
+                    </ul>
+                    <p id="article-source"></p>
+                    <p id="article-published-on"></p>
+                    <p id="article-author"></p>
+                    
                     <div class=".col-4 mt-5" id="advertisements"> advertenties</div>
 
                 </div>
 
-                <div class="col-md-4" id="othernews"> ander nieuws</div>
+                <div class="col-md-3" id="box">
+                    <p>
+                        <b>Other news</b>
+                    </p>
+                    <ul>
+                        <li>
+                            <a href="" id="other-news1"></a>
+                        </li>
+                        <li>
+                            <a href="" id="other-news2"></a>
+                        </li>
+                        <li>
+                            <a href="" id="other-news3"></a>
+                        </li>
+                        <li>
+                            <a href="" id="other-news4"></a>
+                        </li>
+                        <li>
+                            <a href="" id="other-news5"></a>
+                        </li>
+                    </ul>
+                    <br>
+                    <a href="" id="other-news2"></a>
+                    <br>
+                    <a href="" id="other-news3"></a>
+                    <br>
+                    <a href="" id="other-news4"></a>
+                    <br>
+                    <a href="" id="other-news5"></a>
+                </div>
             </div>
         </div>
     </div>
@@ -133,18 +192,6 @@
 
 <!-- Main js -->
 <script src="../js/main/main.js"></script>
-<script>
-    var newsFetch = UsNews()
-        .then(function (newsFetch) {
-            console.log(newsFetch);
-        });
-
-    window.onload(
-        function setArticlesOnPage() {
-            document.getElementById("article").innerHTML = newsFetch[0].source.title;
-            document.getElementById("Flag").src = landeinfo[input].Flag;
-        }
-    )
-</script>
+<script src="article.js"></script>
 
 </html>
