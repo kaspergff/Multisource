@@ -17,7 +17,7 @@ function setArticlesOnPage(news, cn, ru, id, br) {
     // document.getElementById("article-description").innerHTML = news[0].description;
     // document.getElementById("link-to-article").href = news[0].url;
     document.getElementById("article-source").innerHTML = "<b> Source: </b>" + news[0].source.name;
-    document.getElementById("article-published-on").innerHTML = "<b> Published on: </b>" + news[0].publishedAt.slice(0, -10);
+    document.getElementById("article-published-on").innerHTML = "<b> Published at: </b>" + news[0].publishedAt.slice(0, -10);
     document.getElementById("article-author").innerHTML = "<b> Author: </b>" + news[0].author;
 
     //document.getElementById("other-source1").href = news[1].url;
