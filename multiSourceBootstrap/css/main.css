@@ -52,7 +52,7 @@ body {
   padding: 14px 14px 0;
   overflow: hidden;
   /* background-color: rgba(255, 255, 255, .8); */
-  background-color: #343a40;;
+  background-color: rgba(52, 58, 64, .95);
   color: #fff;
 }
 
@@ -62,7 +62,7 @@ body {
 
 #login-dp .bottom {
   /* background-color: rgba(255, 255, 255, .8); */
-  background-color: #343a40;
+  /* background-color: rgba(52, 58, 64, .95); */
   clear: both;
   padding: 14px;
 }
@@ -99,13 +99,13 @@ body {
   background-color: #59b5fa;
 }
 
-@media(max-width:100%) {
+@media(max-width:768px) {
   #login-dp {
-    background-color: #343a40;;
+    background-color: rgba(52, 58, 64, .95);
     color: #fff;
   }
   #login-dp .bottom {
-    background-color: #343a40;
+    background-color: rgba(52, 58, 64, .95);
     /* border-top: 0 none; */
   }
 }
