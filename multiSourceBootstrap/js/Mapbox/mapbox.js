@@ -108,6 +108,10 @@ map.on('load', function () {
             layers: ['points0']
         });
 
+        if(ShowInfo){
+            showCountryScherm(features);
+        }
+
         //If statement die de regelen welke popups / markers getoont moeten worden
         if (iconFeatures.length > 0) {
             console.log("in de if statement");
@@ -120,8 +124,8 @@ map.on('load', function () {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map),
-                    console.log(features),
-                    localStorage.setItem("features", features);
+                        console.log(features),
+                        localStorage.setItem("features", features);
                 });
         } else {
             newsByCountry(features)
@@ -387,51 +391,58 @@ function icon(map, e) {
         markerFeatures.push(marker.geometry.coordinates);
 
     });
-    drawLine([[5, 52.931567], [37.621407, 55.754700], [150.945667, -33.809140]]);
+    drawLine([
+        [5, 52.931567],
+        [37.621407, 55.754700],
+        [150.945667, -33.809140]
+    ]);
 }
-var ISOa2;
+
 
 function showCountryScherm(features) {
     // ISOa2 afkorting van het land
+    var ISOa2;
     newISOa2 = isoA2(features);
 
     if (ISOa2 !== newISOa2 && newISOa2) {
         ISOa2 = newISOa2;
         updateCountryName(ISOa2);
     }
+    setCountryInfo(ISOa2);
+    // if (ShowInfo === false) {
+    //     setCountryInfo(map, info, ISOa2);
+    //     ShowInfo = true;
+    // }
 
-    if (ShowInfo === false) {
-        setCountryInfo(map, info, ISOa2);
-        ShowInfo = true;
-    }
+
 }
 
 function drawLine(coordinates) {
     for (let i = 0; i < coordinates.length; i++) {
-    map.addLayer({
-        "id": "route",
-        "type": "line",
-        "source": {
-            "type": "geojson",
-            "data": {
-                "type": "Feature",
-                "properties": {},
-                "geometry": {
-                    "type": "LineString",
-                    "coordinates": coordinates
+        map.addLayer({
+            "id": "route",
+            "type": "line",
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": coordinates
+                    }
                 }
+            },
+            "layout": {
+                "line-join": "round",
+                "line-cap": "round"
+            },
+            "paint": {
+                "line-color": "#888",
+                "line-width": 8
             }
-        },
-        "layout": {
-            "line-join": "round",
-            "line-cap": "round"
-        },
-        "paint": {
-            "line-color": "#888",
-            "line-width": 8
-        }
-    });
-}
+        });
+    }
 }
 
 

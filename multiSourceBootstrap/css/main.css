@@ -20,7 +20,7 @@ body {
 
 .container-fluid {
   width: 100%;
-  padding-right: 15px;
+  padding-right: 0px;
   padding-left: 0px;
   margin-right: auto;
   margin-left: auto;
@@ -36,6 +36,7 @@ body {
   background-color: #f0f0ef;
   border-style: solid;
   border-color: #343a40;
+  padding: 10px;
 }
 
 #slidebar {
@@ -45,4 +46,81 @@ body {
   right: 25%;
   left: 50%;
   margin-left: -150px;
+}
+
+#login-dp {
+  min-width: 250px;
+  padding: 14px 14px 0;
+  overflow: hidden;
+  /* background-color: rgba(255, 255, 255, .8); */
+  background-color: rgba(52, 58, 64, .95);
+  color: #fff;
+}
+
+#login-dp .help-block {
+  font-size: 12px
+}
+
+#login-dp .bottom {
+  /* background-color: rgba(255, 255, 255, .8); */
+  /* background-color: rgba(52, 58, 64, .95); */
+  clear: both;
+  padding: 14px;
+}
+
+#login-dp .social-buttons {
+  margin: 12px 0
+}
+
+#login-dp .social-buttons a {
+  width: 49%;
+}
+
+#login-dp .form-group {
+  margin-bottom: 10px;
+}
+
+.btn-fb {
+  color: #fff;
+  background-color: #3b5998;
+}
+
+.btn-fb:hover {
+  color: #fff;
+  background-color: #496ebc
+}
+
+.btn-tw {
+  color: #fff;
+  background-color: #55acee;
+}
+
+.btn-tw:hover {
+  color: #fff;
+  background-color: #59b5fa;
+}
+
+@media(max-width:768px) {
+  #login-dp {
+    background-color: rgba(52, 58, 64, .95);
+    color: #fff;
+  }
+  #login-dp .bottom {
+    background-color: rgba(52, 58, 64, .95);
+    /* border-top: 0 none; */
+  }
+}
+
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+.marker {
+  background-image: url("images/map-marker.png");
+  display: block;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
 }

@@ -2,7 +2,7 @@
 var ShowInfo = false;
 
 // volgende functie maakt het landeninfo scherm zichtbaar of juist niet
-function setCountryInfo(map, info, ISOa2) {
+function setCountryInfo(ISOa2) {
     // Als ShowInfo waar is maak de map 100% breed en haal het info scherm weer weg. 
     // Zet ShowInfo op false
     // Else
