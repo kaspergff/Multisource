@@ -435,38 +435,7 @@ function drawLine(coordinates) {
 }
 
 
-function drawline(map) {
-    map.addLayer({
-        "id": "route",
-        "type": "line",
-        "source": {
-            "type": "geojson",
-            "data": {
-                "type": "Feature",
-                "properties": {},
-                "geometry": {
-                    "type": "LineString",
-                    "coordinates": [
-                        [5, 52.931567],
-                        [37.621407, 55.754700],
-                        [5, 52.931567],
-                        [150.945667, -33.809140],
-                        [5, 52.931567],
-                        [-63.29223632812499, -18.28151823530889]
-                    ]
-                }
-            }
-        },
-        "layout": {
-            "line-join": "round",
-            "line-cap": "round"
-        },
-        "paint": {
-            "line-color": "#ed6498",
-            "line-width": 4
-        }
-    });
-};
+
 
 // map.addLayer({
 //     "id": "state-borders",
