@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -9,33 +8,23 @@
         <meta name="author" content="">
 
         <title>MultiSource</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet" />
+        <link href="../css/searchResult2.css" rel="stylesheet" />
         
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" crossorigin="anonymous"/>
         
-        <!--MapBox.js -->
-        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
-        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
 
-        <!-- Bootstrap core CSS -->
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
-        <link href="css/main.css" rel="stylesheet" />
-
-        <script src='js/Mapbox/landeninfo.js'></script>
-        <script src="js/Mapbox/locations.js"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.min.css"
-              />
     </head>
 
-    <body>
-        <!-- Navigation -->
+    <body onload="foo()">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-inverse">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">MultiSource</a>
+                <a class="navbar-brand" href="../index.html">MultiSource</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -52,10 +41,8 @@
                     <ul class="navbar-nav ml-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="../index.html">About</a>
                         </li>
-
-
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="#">Services</a>
                         </li>
@@ -115,61 +102,80 @@
                 </div>
             </div>
         </nav>
+        <div class="container">
 
-
-        <!-- Page Content -->
-        <!--Map-->
-
-        <div>
-            <div id="info">
-                <div class="row">
-                    <div class="col">
-                        <h1 id="countryName">Test</h1>
+            <hgroup class="mb20">
+                <h1>Search Results</h1>
+                <h2 class="lead"><strong class="text-danger">3</strong> results were found for the search for <strong class="text-danger">Lorem</strong></h2>								
+            </hgroup>
+            
+            
+            
+            <section class="col-xs-12 col-sm-6 col-md-12">
+                <article class="categories">
+                    
+                    <div class="col-xs-12 col-sm-12 col-md-2">
                     </div>
-                    <div class="col">
-                        <img id="Flag" src="" alt="Flag" class='img-fluid'>
+                    <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                        <h3><a href="#" title="">Categories</a></h3>
+                        <p>Category 1 <br>
+                            Category 2 <br>
+                        Category 3</p>
                     </div>
-                </div>
-                <p id="Capital"></p>
-                <p id="Official_Language">Test</p>
-                <p id="Main_Religion">Test</p>
-                <p id="Population">Test</p>
-                <p id="Government">Test</p>
-                <p id="Head_Of_State">Test</p>
-                <p id="GDP_Per_Capita">Test</p>
-                <p id="HDI">Test</p>
-            </div>
-            <div id='map' class='container-fluid'>
+                    <span class="clearfix borda"></span>
+                </article>
+                <article class="search-result row">
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/people" alt="Lorem ipsum" /></a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-2">
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                        <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
+                    </div>
+                    <span class="clearfix borda"></span>
+                </article>
 
-            </div>
+                <article class="search-result row">
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/food" alt="Lorem ipsum" /></a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-2">
+                        <ul class="meta-search">
+                            <li><i class="glyphicon glyphicon-calendar"></i> <span>02/13/2014</span></li>
+                            <li><i class="glyphicon glyphicon-time"></i> <span>8:32 pm</span></li>
+                            <li><i class="glyphicon glyphicon-tags"></i> <span>Food</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7">
+                        <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                        
+                    </div>
+                    <span class="clearfix borda"></span>
+                </article>
 
+                <article class="search-result row">
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/sports" alt="Lorem ipsum" /></a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-2">
+                        <ul class="meta-search">
+                            <li><i class="glyphicon glyphicon-calendar"></i> <span>01/11/2014</span></li>
+                            <li><i class="glyphicon glyphicon-time"></i> <span>10:13 am</span></li>
+                            <li><i class="glyphicon glyphicon-tags"></i> <span>Sport</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7">
+                        <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                        
+                    </div>
+                    <span class="clearfix border"></span>
+                </article>			
+
+            </section>
         </div>
-        <div id='slidebar'>
-            <input id="ex8" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="30"
-                   />
-        </div>
-
-
     </body>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Mapbox code -->
-    <script src="js/Mapbox/ISO_A2.js"></script>
-    <script src="js/Mapbox/mapbox.js"></script>
-
-    <!-- newsApi code -->
-    <script src="js/newsApi/newsApi.js"></script>
-
-    <!-- Main js -->
-    <script src="js/main/main.js"></script>
-
-    <!-- Knockout js -->
-    <script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-3.4.2.js"></script>
-
-    <!-- countryPage (to be renamed) js -->
-    <script src="js/Mapbox/countryPage.js"></script>
-
 </html>
