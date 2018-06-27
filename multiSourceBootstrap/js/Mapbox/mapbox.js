@@ -1,9 +1,10 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoia3JnZmYiLCJhIjoiY2pneHYyMTZmMWdpbTJ4bjAyOTRka3pmbiJ9.QzZJfoOueJ8wfmo0NCHGQQ';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/light-v9',
+    style: 'mapbox://styles/mapbox/basic-v9',
     center: [-0, 37.830348],
-    zoom: 1.5
+    zoom: 1.5,
+    maxZoom: 5
 });
 var bounds = new mapboxgl.LngLatBounds();
 
