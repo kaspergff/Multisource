@@ -9,6 +9,10 @@ var map = new mapboxgl.Map({
 var bounds = new mapboxgl.LngLatBounds();
 map.addControl(new mapboxgl.NavigationControl());
 
+var gekliktPunt, punten, puntenArr;
+var randomON = true;
+var drieFeatures;
+
 map.on('load', function () {
     // landen
     map.addSource("states", {
@@ -90,7 +94,7 @@ map.on('load', function () {
     });
 
     // hiermee worden de random points getekend
-    drawPoint(1);
+    drawRandomPoints(1);
 
     //disable double click zoom
     map.doubleClickZoom.disable();
@@ -113,9 +117,15 @@ map.on('load', function () {
         });
 
         // zorgt dat t country scherm weggehaald wordt als het er staat en er op de kaart wordt geklikt
-        if(ShowInfo){
+        if (ShowInfo) {
             showCountryScherm(features);
         }
+
+        drieFeatures = map.queryRenderedFeatures(e.point, {
+            layers: ['3points0']
+        });
+
+
 
         //If statement die de regelen welke popups / markers getoont moeten worden
         if (iconFeatures.length > 0) {
@@ -123,14 +133,16 @@ map.on('load', function () {
             removePoints();
             createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
             icon(map, e);
-            //drawline(map);
-        } else if (randomFeatures.length > 0) {
-            console.log("raak");
+        } else if (randomON && randomFeatures.length > 0) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map),
-                        console.log(features),
-                        localStorage.setItem("features", features);
+                        gekliktPunt = randomFeatures[0].geometry.coordinates;
+                });
+        } else if (drieFeatures.length > 0) {
+            newsByCountry(features)
+                .then(function (articles) {
+                    createPopup(e, articles[0].title, map)
                 });
         } else {
             newsByCountry(features)
@@ -235,7 +247,10 @@ function createPopup(e, text, map) {
     if (map) {
         popup.addTo(map)
             .setLngLat(e.lngLat)
-            .setHTML("<a href=\"./pages/article.html\">" + text + "</a>");
+            .setHTML("<a href=\"./pages/article.html\">" + text + "</a><br /> <div id='lijntjes'> Test text</div> ");
+            document.getElementById("lijntjes").addEventListener("click", function(){
+                lijntjesTekenen(e,map)
+            });
     } else {
         var markerPopup = new mapboxgl.Popup(popupOptions);
         markerPopup.setHTML("<a href=\"https://www.w3schools.com/html/\">" + text + "</a>");
@@ -247,8 +262,9 @@ function removePoints() {
     map.removeLayer("points0")
 }
 
-// functie om punten te tekenen op de kaart 
-function drawPoint(index) {
+
+// functie om 10 punten te tekenen op de kaart 
+function drawRandomPoints(index) {
     for (let i = 0; i < index; i++) {
         map.addLayer({
             "id": "points" + i,
@@ -371,6 +387,93 @@ function drawPoint(index) {
     }
 }
 
+// functie om 3 punten te tekenen op de kaart 
+function draw3RandomPoints(punt, index) {
+    for (let i = 0; i < index; i++) {
+        map.addLayer({
+            "id": "3points" + i,
+            "type": "symbol",
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "FeatureCollection",
+                    "features": [{
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": punt
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        }, {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": locations.features[Math.floor(Math.random() * 600)].geometry.coordinates
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        }
+                    ]
+                }
+            },
+            "layout": {
+                "icon-image": "{icon}-15",
+                "text-field": "{title}",
+                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                "text-offset": [0, 0.6],
+                "text-anchor": "top"
+            }
+        });
+    }
+}
+
+function lijntjesTekenen(e, map) {
+    removePoints();
+    draw3RandomPoints(gekliktPunt, 1);
+    punten = getFeatures("3points0");
+    puntenArr = makeArr(punten);
+    drawLineVanArr(puntenArr, gekliktPunt);
+    randomON = false;
+}
+
+
+function getFeatures(id) {
+    punten = map.getSource(id);
+    punten = punten._data.features;
+    return punten;
+}
+
+function makeArr(punten) {
+    var arr = [
+        [punten[1].geometry.coordinates[0], punten[1].geometry.coordinates[1]],
+        [punten[2].geometry.coordinates[0], punten[2].geometry.coordinates[1]],
+        [punten[3].geometry.coordinates[0], punten[3].geometry.coordinates[1]]
+    ];
+    return arr;
+}
 
 function icon(map, e) {
     createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
@@ -405,7 +508,7 @@ function icon(map, e) {
     ]);
 }
 
-
+// countryscherm laten zien
 function showCountryScherm(features) {
     // ISOa2 afkorting van het land
     var ISOa2;
@@ -424,6 +527,41 @@ function showCountryScherm(features) {
 
 }
 
+function drawLineVanArr(arr, begin) {
+    console.log("arr" + arr[0])
+    console.log("begin" + begin)
+    map.addLayer({
+        "id": "routeXX",
+        "type": "line",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                        [begin[0], begin[1]],
+                        [arr[0][0], arr[0][1]],
+                        [begin[0], begin[1]],
+                        [arr[1][0], arr[1][1]],
+                        [begin[0], begin[1]],
+                        [arr[2][0], arr[2][1]]
+                    ]
+                }
+            }
+        },
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": "#888",
+            "line-width": 2
+        }
+    });
+}
+// lijn tekenen tussen coordinaten
 function drawLine(coordinates) {
     for (let i = 0; i < coordinates.length; i++) {
         map.addLayer({
@@ -446,7 +584,7 @@ function drawLine(coordinates) {
             },
             "paint": {
                 "line-color": "#888",
-                "line-width": 8
+                "line-width": 2
             }
         });
     }
