@@ -179,8 +179,7 @@ body {
   opacity: 1;
   -webkit-transition: .2s;
   transition: opacity .2s;
-
-  bottom: 50%;
+  top: 575px;
 }
 
 .slider::-webkit-slider-thumb {
