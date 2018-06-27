@@ -1,22 +1,26 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoia3JnZmYiLCJhIjoiY2pneHYyMTZmMWdpbTJ4bjAyOTRka3pmbiJ9.QzZJfoOueJ8wfmo0NCHGQQ';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/light-v9',
+    style: 'mapbox://styles/mapbox/basic-v9',
     center: [-0, 37.830348],
-    zoom: 1.5
+    zoom: 1.5,
+    maxZoom: 4.5
 });
 var bounds = new mapboxgl.LngLatBounds();
+map.addControl(new mapboxgl.NavigationControl());
 
 map.on('load', function () {
+    // landen
     map.addSource("states", {
         "type": "geojson",
         "data": "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
     });
-
+    // bounding box 
     map.addSource("bbox", {
         "type": "geojson",
         "data": "https://raw.githubusercontent.com/azurro/country-bounding-boxes/master/boxes.geojson"
     });
+    // landen fill
     map.addLayer({
         "id": "state-fills",
         "type": "fill",
@@ -28,6 +32,7 @@ map.on('load', function () {
         }
     });
 
+    // line mh17
     map.addLayer({
         'id': 'line-animation',
         'type': 'line',
@@ -45,7 +50,7 @@ map.on('load', function () {
             'line-opacity': .8
         }
     });
-
+    // MH15 icon
     map.addLayer({
         "id": "mh-17",
         "type": "symbol",
@@ -72,6 +77,7 @@ map.on('load', function () {
         }
     });
 
+    // bounding box fill
     map.addLayer({
         "id": "bbox-fills",
         "type": "fill",
@@ -83,31 +89,30 @@ map.on('load', function () {
         }
     });
 
+    // hiermee worden de random points getekend
     drawPoint(1);
-
-    var newsFetch = newsOnLoad()
-        .then(function (newsFetch) {
-            console.log(newsFetch);
-        });
-
 
     //disable double click zoom
     map.doubleClickZoom.disable();
-    // Functie die het klikken op de map regelt
+
+    // Functie die 1x klikken op de map regelt
     map.on("click", function (e) {
         // Op welk land wordt geklikt --> .geojson
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
 
+        // als er op mh17 geklikt wordt
         var iconFeatures = map.queryRenderedFeatures(e.point, {
             layers: ['mh-17']
         });
 
+        // als er op de random points gekilkt wordt
         var randomFeatures = map.queryRenderedFeatures(e.point, {
             layers: ['points0']
         });
 
+        // zorgt dat t country scherm weggehaald wordt als het er staat en er op de kaart wordt geklikt
         if(ShowInfo){
             showCountryScherm(features);
         }
@@ -135,7 +140,9 @@ map.on('load', function () {
         }
     });
 
+    // dubbel klik op de kaart
     map.on("dblclick", function (e) {
+        // op welk land wordt er dubbel geklikt
         var features = map.queryRenderedFeatures(e.point, {
             layers: ["state-fills"]
         });
