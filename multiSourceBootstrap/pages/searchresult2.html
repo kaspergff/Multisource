@@ -13,10 +13,10 @@
         <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/main.css" rel="stylesheet" />
         <link href="../css/searchResult2.css" rel="stylesheet" />
-        
+
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" crossorigin="anonymous"/>
-        
+
         <!-- JS Files -->
         <script src='searchresult2.js'></script>
 
@@ -32,10 +32,17 @@
                 </button>
                 <div class="wrap">
                     <div class="search">
-                        <input type="text" class="searchTerm" placeholder="Search for an article...">
-                        <button type="submit" class="searchButton" onclick="">
+                        <input type="text" class="searchTerm" id='searchField' placeholder="Search for an article...">
+                        <button type="submit" class="searchButton" id='searchButton' onclick="">
                             <i class="fa fa-search"></i>
                         </button>
+                        <script>
+                            document.getElementById('searchButton').onclick = function () {
+                                var inputValue = document.getElementById('searchField').value;
+                                localStorage.setItem("searchText", inputValue);
+                                location.href = './searchresult2.html';
+                            };
+                        </script>
                     </div>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -107,27 +114,15 @@
 
             <hgroup class="mb20">
                 <h1>Search Results</h1>
-                <h2 class="lead"><strong class="text-danger">3</strong> results were found for the search for <strong class="text-danger">Lorem</strong></h2>								
+                <h2 class="lead"><strong class="text-danger">5</strong> results were found for the search for <strong id='keyword' class="text-danger">Lorem</strong></h2>								
             </hgroup>
-            
-            
-            
+
+
+
             <section class="col-xs-12 col-sm-6 col-md-12">
-                <article class="categories">
-                    
-                    <div class="col-xs-12 col-sm-12 col-md-2">
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                        <h3><a href="#" title="">Categories</a></h3>
-                        <p>Category 1 <br>
-                            Category 2 <br>
-                        Category 3</p>
-                    </div>
-                    <span class="clearfix borda"></span>
-                </article>
                 <article class="search-result row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
-<!--                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/people" alt="Lorem ipsum" /></a>-->
+                        <a href="#" title="Lorem ipsum" class="thumbnail"><img id='first-img' src="" alt="Lorem ipsum" /></a>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-2">
                         <ul class="meta-search">
@@ -137,7 +132,7 @@
                         </ul>
                     </div>
                     <div id='first-article' class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                        <h3><a id='first-title' href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <h3><a id='first-title' href="./article.html" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
                         <p id='first-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
                     </div>
                     <span class="clearfix borda"></span>
@@ -145,7 +140,7 @@
 
                 <article class="search-result row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
-<!--                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/food" alt="Lorem ipsum" /></a>-->
+                        <a href="#" title="Lorem ipsum" class="thumbnail"><img id='second-img' src="" alt="Lorem ipsum" /></a>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-2">
                         <ul class="meta-search">
@@ -155,16 +150,16 @@
                         </ul>
                     </div>
                     <div id='second-article' class="col-xs-12 col-sm-12 col-md-7">
-                        <h3><a id='second-title' href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <h3><a id='second-title' href="./article.html" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
                         <p id='second-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
-                        
+
                     </div>
                     <span class="clearfix borda"></span>
                 </article>
 
                 <article class="search-result row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
-<!--                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/sports" alt="Lorem ipsum" /></a>-->
+                        <a href="#" title="Lorem ipsum" class="thumbnail"><img id='third-img' src="" alt="Lorem ipsum" /></a>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-2">
                         <ul class="meta-search">
@@ -174,16 +169,16 @@
                         </ul>
                     </div>
                     <div id='third-article' class="col-xs-12 col-sm-12 col-md-7">
-                        <h3><a href="#" title="" id='third-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <h3><a href="./article.html" title="" id='third-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
                         <p id='third-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
-                        
+
                     </div>
-                    
+
                 </article>			
-                
+
                 <article class="search-result row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
-<!--                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/sports" alt="Lorem ipsum" /></a>-->
+                        <a href="#" title="Lorem ipsum" class="thumbnail"><img id='fourth-img' src="" alt="Lorem ipsum" /></a>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-2">
                         <ul class="meta-search">
@@ -193,15 +188,15 @@
                         </ul>
                     </div>
                     <div id='fourth-article' class="col-xs-12 col-sm-12 col-md-7">
-                        <h3><a href="#" title="" id='fourth-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <h3><a href="./article.html" title="" id='fourth-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
                         <p id='fourth-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
-                        
+
                     </div>
                 </article>
-                
+
                 <article class="search-result row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
-<!--                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/sports" alt="Lorem ipsum" /></a>-->
+                        <a href="#" title="Lorem ipsum" class="thumbnail"><img id='fifth-img' src='' alt="Lorem ipsum" /></a>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-2">
                         <ul class="meta-search">
@@ -211,9 +206,9 @@
                         </ul>
                     </div>
                     <div id='fifth-article' class="col-xs-12 col-sm-12 col-md-7">
-                        <h3><a href="#" title="" id='fifth-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <h3><a href="./article.html" title="" id='fifth-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
                         <p id='fifth-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
-                        
+
                     </div>
                     <span class="clearfix border"></span>
                 </article>
@@ -221,7 +216,7 @@
             </section>
         </div>
     </body>
-    
+
     <!-- newsApi code -->
     <script src="../js/newsApi/newsApi.js"></script>
 

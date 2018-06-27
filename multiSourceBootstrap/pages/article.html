@@ -1,208 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+    <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <title>MultiSource</title>
+        <title>MultiSource</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/main.css" rel="stylesheet" />
-    <link href="articles.css" rel="stylesheet" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" crossorigin="anonymous"/>
 
-</head>
+        <!-- Bootstrap core CSS -->
+        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet" />
+        <link href="articles.css" rel="stylesheet" />
 
-<body onload="foo()">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-inverse">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">MultiSource</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
+    </head>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.html">About</a>
-                    </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li> -->
-                    <li class="dropdown nav-item">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            Login
-                            <span class="caret"></span>
-                        </a>
-                        <ul id="login-dp" class="dropdown-menu dropdown-menu-right">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        Login via
-                                        <div class="social-buttons">
-                                            <a href="#" class="btn btn-fb">
-                                                <i class="fa fa-facebook"></i> Facebook</a>
-                                            <a href="#" class="btn btn-tw">
-                                                <i class="fa fa-twitter"></i> Twitter</a>
-                                        </div>
-                                        or
-                                        <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                                            <div class="form-group">
-                                                <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+    <body onload="foo()">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-inverse">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html">MultiSource</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="wrap">
+                    <div class="search">
+                        <input type="text" id='searchField' class="searchTerm" placeholder="Search for an article...">
+                        <button type="submit" id='searchButton' class="searchButton" onclick="">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <script>
+                            document.getElementById('searchButton').onclick = function () {
+                                var inputValue = document.getElementById('searchField').value;
+                                localStorage.setItem("searchText", inputValue);
+                                location.href = './searchresult2.html';
+                            };
+                        </script>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">About</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="#">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li> -->
+                        <li class="dropdown nav-item">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                Login
+                                <span class="caret"></span>
+                            </a>
+                            <ul id="login-dp" class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            Login via
+                                            <div class="social-buttons">
+                                                <a href="#" class="btn btn-fb">
+                                                    <i class="fa fa-facebook"></i> Facebook</a>
+                                                <a href="#" class="btn btn-tw">
+                                                    <i class="fa fa-twitter"></i> Twitter</a>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                                <div class="help-block text-right">
-                                                    <a href="">Forget the password ?</a>
+                                            or
+                                            <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                                <div class="form-group">
+                                                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> keep me logged-in
-                                                </label>
-                                            </div>
-                                        </form>
+                                                <div class="form-group">
+                                                    <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                                    <div class="help-block text-right">
+                                                        <a href="">Forget the password ?</a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> keep me logged-in
+                                                    </label>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="bottom text-center">
+                                            New here ?
+                                            <a href="#">
+                                                <b>Join Us</b>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="bottom text-center">
-                                        New here ?
-                                        <a href="#">
-                                            <b>Join Us</b>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <div>
-        <div >
-            <div class="row">
-                <div class="col-md-6" id="article">
-                    <h3 id="article-title">Title </h3>
-                    <!-- <img src="" id="article-img" height="420" width="420"> -->
-                    <p id="article-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac nulla suscipit, euismod magna eu, volutpat sem. Donec vel
-                        scelerisque nisi, non sagittis orci. Nullam vestibulum id sapien quis consectetur. Curabitur aliquam
-                        sed augue eget faucibus. Vestibulum at efficitur diam. Suspendisse nec elementum mi, non venenatis
-                        turpis. In nulla mi, convallis mollis gravida sed, feugiat vitae neque. Suspendisse venenatis elit
-                        eget turpis rhoncus vestibulum. Pellentesque sollicitudin ligula leo, eu posuere eros dignissim tempus.
-                        Sed in faucibus arcu, ut suscipit felis. Duis sed mi est. Ut massa diam, pharetra a convallis eu,
-                        vulputate ac elit. </p>
-                    <p>
-                        In nulla mi, convallis mollis gravida sed, feugiat vitae neque. Suspendisse venenatis elit eget turpis rhoncus vestibulum.
-                        Pellentesque sollicitudin ligula leo, eu posuere eros dignissim tempus. Sed in faucibus arcu, ut
-                        suscipit felis. Duis sed mi est. Ut massa diam, pharetra a convallis eu, vulputate ac elit.
-                    </p>
-                    
-                    <div id="article-information">
-                        <p id="article-source"></p>
-                        <p id="article-published-on"></p>
-                        <p id="article-author"></p>
+        <div>
+            <div >
+                <div class="row">
+                    <div class="col-md-6" id="article">
+                        <h3 id="article-title">Title </h3>
+                        <!-- <img src="" id="article-img" height="420" width="420"> -->
+                        <p id="article-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac nulla suscipit, euismod magna eu, volutpat sem. Donec vel
+                            scelerisque nisi, non sagittis orci. Nullam vestibulum id sapien quis consectetur. Curabitur aliquam
+                            sed augue eget faucibus. Vestibulum at efficitur diam. Suspendisse nec elementum mi, non venenatis
+                            turpis. In nulla mi, convallis mollis gravida sed, feugiat vitae neque. Suspendisse venenatis elit
+                            eget turpis rhoncus vestibulum. Pellentesque sollicitudin ligula leo, eu posuere eros dignissim tempus.
+                            Sed in faucibus arcu, ut suscipit felis. Duis sed mi est. Ut massa diam, pharetra a convallis eu,
+                            vulputate ac elit. </p>
+                        <p>
+                            In nulla mi, convallis mollis gravida sed, feugiat vitae neque. Suspendisse venenatis elit eget turpis rhoncus vestibulum.
+                            Pellentesque sollicitudin ligula leo, eu posuere eros dignissim tempus. Sed in faucibus arcu, ut
+                            suscipit felis. Duis sed mi est. Ut massa diam, pharetra a convallis eu, vulputate ac elit.
+                        </p>
+
+                        <div id="article-information">
+                            <p id="article-source"></p>
+                            <p id="article-published-on"></p>
+                            <p id="article-author"></p>
+                        </div>
+
+
+
+                        <p>
+                            <a href="" id="link-to-article" target="_blank">Click here to read the full article</a>
+                        </p>
+
+                        <div class=".col-4 mt-5" id="comments"> comments</div>
                     </div>
 
+                    <div class="col-md-3" id="box2">
+                        <p>
+                            <b>Other sources</b>
+                        </p>
+                        <ul>
+                            <li>
+                                <a href="" id="other-source1"></a>
+                                <p id="other-source1-text">In nulla mi, convallis mollis gravida sed, feugiat vitae neque.</p>
+                            </li>
+                            <li>
+                                <a href="" id="other-source2"></a>
+                                <p id="other-source2-text">In nulla mi, convallis mollis gravida sed, feugiat vitae neque.</p>
+                            </li>
+                            <li>
+                                <a href="" id="other-source3"></a>
+                                <p id="other-source3-text">In nulla mi, convallis mollis gravida sed, feugiat vitae neque.</p>
 
+                            </li>
+                            <li>
+                                <a href="" id="other-source4"></a>
+                                <p id="other-source4-text">In nulla mi, convallis mollis gravida sed, feugiat vitae neque.</p>
+                            </li>
+                            <li>
+                                <a href="" id="other-source5"></a>
+                                <p id="other-source5-text">In nulla mi, convallis mollis gravida sed, feugiat vitae neque.</p>
+                            </li>
+                        </ul>
 
-                    <p>
-                        <a href="" id="link-to-article" target="_blank">Click here to read the full article</a>
-                    </p>
+                        <div class=".col-4 mt-5" id="advertisements"> advertenties</div>
 
-                    <div class=".col-4 mt-5" id="comments"> comments</div>
-                </div>
+                    </div>
 
-                <div class="col-md-3" id="box2">
-                    <p>
-                        <b>Other sources</b>
-                    </p>
-                    <ul>
-                        <li>
-                            <a href="" id="other-source1"></a>
-                            <p id="other-source1-text">In nulla mi, convallis mollis gravida sed, feugiat vitae neque.</p>
-                        </li>
-                        <li>
-                            <a href="" id="other-source2"></a>
-                            <p id="other-source2-text">In nulla mi, convallis mollis gravida sed, feugiat vitae neque.</p>
-                        </li>
-                        <li>
-                            <a href="" id="other-source3"></a>
-                            <p id="other-source3-text">In nulla mi, convallis mollis gravida sed, feugiat vitae neque.</p>
-
-                        </li>
-                        <li>
-                            <a href="" id="other-source4"></a>
-                            <p id="other-source4-text">In nulla mi, convallis mollis gravida sed, feugiat vitae neque.</p>
-                        </li>
-                        <li>
-                            <a href="" id="other-source5"></a>
-                            <p id="other-source5-text">In nulla mi, convallis mollis gravida sed, feugiat vitae neque.</p>
-                        </li>
-                    </ul>
-                    
-                    <div class=".col-4 mt-5" id="advertisements"> advertenties</div>
-
-                </div>
-
-                <div class="col-md-3" id="box">
-                    <p>
-                        <b>Other news</b>
-                    </p>
-                    <ul>
-                        <li>
-                            <a href="" id="other-news1"></a>
-                        </li>
-                        <li>
-                            <a href="" id="other-news2"></a>
-                        </li>
-                        <li>
-                            <a href="" id="other-news3"></a>
-                        </li>
-                        <li>
-                            <a href="" id="other-news4"></a>
-                        </li>
-                        <li>
-                            <a href="" id="other-news5"></a>
-                        </li>
-                    </ul>
-                    <br>
-                    <a href="" id="other-news2"></a>
-                    <br>
-                    <a href="" id="other-news3"></a>
-                    <br>
-                    <a href="" id="other-news4"></a>
-                    <br>
-                    <a href="" id="other-news5"></a>
+                    <div class="col-md-3" id="box">
+                        <p>
+                            <b>Other news</b>
+                        </p>
+                        <ul>
+                            <li>
+                                <a href="" id="other-news1"></a>
+                            </li>
+                            <li>
+                                <a href="" id="other-news2"></a>
+                            </li>
+                            <li>
+                                <a href="" id="other-news3"></a>
+                            </li>
+                            <li>
+                                <a href="" id="other-news4"></a>
+                            </li>
+                            <li>
+                                <a href="" id="other-news5"></a>
+                            </li>
+                        </ul>
+                        <br>
+                        <a href="" id="other-news2"></a>
+                        <br>
+                        <a href="" id="other-news3"></a>
+                        <br>
+                        <a href="" id="other-news4"></a>
+                        <br>
+                        <a href="" id="other-news5"></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 
 
-<!-- Bootstrap core JavaScript -->
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- newsApi code -->
-<script src="../js/newsApi/newsApi.js"></script>
+    <!-- newsApi code -->
+    <script src="../js/newsApi/newsApi.js"></script>
 
-<!-- Main js -->
-<script src="../js/main/main.js"></script>
-<script src="article.js"></script>
+    <!-- Main js -->
+    <script src="../js/main/main.js"></script>
+    <script src="article.js"></script>
 
 </html>
