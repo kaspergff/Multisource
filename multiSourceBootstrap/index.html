@@ -42,12 +42,19 @@
                 </button>
                 <div class="wrap">
                     <div class="search">
-                        <input type="text" class="searchTerm" placeholder="Search for an article...">
-                        <button type="submit" class="searchButton" onclick="">
+                        <input type="text" id='searchField' class="searchTerm" placeholder="Search for an article...">
+                        <button type="submit" id='searchButton' class="searchButton" onclick="newsByKeyword(document.getElementById('searchField').value);">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
                 </div>
+                <script>
+                        document.getElementById('searchButton').onclick= function () {
+                        var input = document.getElementById('searchField').value;
+                        localStorage.setItem("searchText", input);
+                        location.href = '/multiSourceBootstrap/pages/searchresult2.html';
+                    };
+                </script>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
 

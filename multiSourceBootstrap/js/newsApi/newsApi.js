@@ -27,14 +27,14 @@ async function newsByCountry(features) {
     var req = new Request(url);
     let news = await fetch(req);
     let json = await news.json();
-    return json.articles
+    return json.articles;
 }
 async function News(input) {
     var url = makeCountryURL(input);
     var req = new Request(url);
     let news = await fetch(req);
     let json = await news.json();
-    return json.articles
+    return json.articles;
 }
 
 async function GetArticle(input, pageSize) {
@@ -44,17 +44,25 @@ async function GetArticle(input, pageSize) {
     var req = new Request(url);
     let news = await fetch(req);
     let json = await news.json();
-    return json.articles
+    return json.articles;
 }
 
 async function newsUrl(url) {
     var req = new Request(url);
     let news = await fetch(req);
     let json = await news.json();
-    return json.articles
+    return json.articles;
 }
 
-
+async function newsByKeyword(keyword) {
+    const newsApiUrl = "https://newsapi.org/v2/everything?q=";
+    var keywordURIEncoded = encodeURI(keyword);
+    var keywordUrl = await newsApiUrl + keywordURIEncoded + "&" + APIkey;
+    var req = new Request(keywordUrl);
+    let news = await fetch(req);
+    let json = await news.json();
+    return json.articles;
+}   
 
 // Functie geeft ISO a2 van het land waarop gelikt is
 function isoA2(features) {
