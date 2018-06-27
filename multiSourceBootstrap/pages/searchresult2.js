@@ -12,7 +12,7 @@ function setArticles(articles) {
     document.getElementById('first-description').innerHTML = articles[0].description;
     document.getElementById('first-source').innerHTML = articles[0].source.name;
     document.getElementById('first-author').innerHTML = articles[0].author;
-    document.getElementById('first-date').innerHTML = articles[0].date;
+    document.getElementById('first-date').innerHTML = articles[0].publishedAt;
     
     document.getElementById('second-title').innerHTML = articles[1].title;
     document.getElementById('second-description').innerHTML = articles[1].description;
