@@ -9,10 +9,10 @@
         <meta name="author" content="">
 
         <title>MultiSource</title>
-        
+
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" crossorigin="anonymous"/>
-        
+
         <!--MapBox.js -->
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
@@ -43,15 +43,25 @@
                 <div class="wrap">
                     <div class="search">
                         <input type="text" id='searchField' class="searchTerm" placeholder="Search for an article...">
-                        <button type="submit" id='searchButton' class="searchButton" onclick="newsByKeyword(document.getElementById('searchField').value);">
+                        <button type="submit" id='searchButton' class="searchButton" onclick="">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
                 </div>
                 <script>
-                        document.getElementById('searchButton').onclick= function () {
-                        var input = document.getElementById('searchField').value;
-                        localStorage.setItem("searchText", input);
+                    var input = document.getElementById("searchField");
+// Execute a function when the user releases a key on the keyboard
+                    input.addEventListener("keyup", function (event) {
+                        // Number 13 is the "Enter" key on the keyboard
+                        if (event.keyCode === 13) {
+                            // Trigger the button element with a click
+                            document.getElementById("searchButton").click();
+                        }
+                    });
+
+                    document.getElementById('searchButton').onclick = function () {
+                        var inputValue = document.getElementById('searchField').value;
+                        localStorage.setItem("searchText", inputValue);
                         location.href = './pages/searchresult2.html';
                     };
                 </script>
@@ -173,15 +183,15 @@
     <!-- Main js -->
     <script src="js/main/main.js"></script>
 
-<<<<<<< HEAD
-<!-- countryPage (to be renamed) js -->
-<script src="js/Mapbox/countryPage.js"></script>
-=======
+    <<<<<<< HEAD
+    <!-- countryPage (to be renamed) js -->
+    <script src="js/Mapbox/countryPage.js"></script>
+    =======
     <!-- Knockout js -->
     <script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-3.4.2.js"></script>
 
     <!-- countryPage (to be renamed) js -->
     <script src="js/Mapbox/countryPage.js"></script>
->>>>>>> 461a1d29ec0a0e1160a3678af1dfd2c4a84f7f28
+    >>>>>>> 461a1d29ec0a0e1160a3678af1dfd2c4a84f7f28
 
 </html>

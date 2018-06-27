@@ -46,3 +46,13 @@ function setArticlesOnPage(news, cn, ru, id, br) {
     document.getElementById("other-news5").innerHTML = news[10].title;
 
 }
+
+var input = document.getElementById("searchField");
+// Execute a function when the user releases a key on the keyboard
+input.addEventListener("keyup", function (event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+        // Trigger the button element with a click
+        document.getElementById("searchButton").click();
+    }
+});
