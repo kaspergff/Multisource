@@ -9,13 +9,13 @@ ol {
 #box {
     border: 20px rgb(52, 58, 64);
     padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 30px;
+    padding-right: 35px;
+    padding-top: 35px;
 }
 #box2 {
     border: 20px rgb(52, 58, 64);
    
-    padding-top: 30px;
+    padding-top: 35px;
 }
 
 h3 {
