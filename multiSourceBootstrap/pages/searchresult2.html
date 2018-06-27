@@ -17,11 +17,12 @@
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" crossorigin="anonymous"/>
         
-
+        <!-- JS Files -->
+        <script src='searchresult2.js'></script>
 
     </head>
 
-    <body onload="foo()">
+    <body onload="loadPage();">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-inverse">
             <div class="container-fluid">
                 <a class="navbar-brand" href="../index.html">MultiSource</a>
@@ -126,31 +127,36 @@
                 </article>
                 <article class="search-result row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
-                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/people" alt="Lorem ipsum" /></a>
+<!--                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/people" alt="Lorem ipsum" /></a>-->
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-2">
+                        <ul class="meta-search">
+                            <li><i class="glyphicon glyphicon-calendar"></i> <span id='first-date'>02/13/2014</span></li>
+                            <li><i class="glyphicon glyphicon-time"></i> <span id='first-source'>Lorem</span></li>
+                            <li><i class="glyphicon glyphicon-tags"></i> <span id='first-author'>Ipsum</span></li>
+                        </ul>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                        <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
+                    <div id='first-article' class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                        <h3><a id='first-title' href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <p id='first-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
                     </div>
                     <span class="clearfix borda"></span>
                 </article>
 
                 <article class="search-result row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
-                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/food" alt="Lorem ipsum" /></a>
+<!--                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/food" alt="Lorem ipsum" /></a>-->
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-2">
                         <ul class="meta-search">
-                            <li><i class="glyphicon glyphicon-calendar"></i> <span>02/13/2014</span></li>
-                            <li><i class="glyphicon glyphicon-time"></i> <span>8:32 pm</span></li>
-                            <li><i class="glyphicon glyphicon-tags"></i> <span>Food</span></li>
+                            <li><i class="glyphicon glyphicon-calendar"></i> <span id='second-date'>02/13/2014</span></li>
+                            <li><i class="glyphicon glyphicon-time"></i> <span id='second-source'>Lorem</span></li>
+                            <li><i class="glyphicon glyphicon-tags"></i> <span id='second-author'>Ipsum</span></li>
                         </ul>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-7">
-                        <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                    <div id='second-article' class="col-xs-12 col-sm-12 col-md-7">
+                        <h3><a id='second-title' href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <p id='second-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
                         
                     </div>
                     <span class="clearfix borda"></span>
@@ -158,24 +164,65 @@
 
                 <article class="search-result row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
-                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/sports" alt="Lorem ipsum" /></a>
+<!--                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/sports" alt="Lorem ipsum" /></a>-->
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-2">
                         <ul class="meta-search">
-                            <li><i class="glyphicon glyphicon-calendar"></i> <span>01/11/2014</span></li>
-                            <li><i class="glyphicon glyphicon-time"></i> <span>10:13 am</span></li>
-                            <li><i class="glyphicon glyphicon-tags"></i> <span>Sport</span></li>
+                            <li><i class="glyphicon glyphicon-calendar"></i> <span id='third-date'>02/13/2014</span></li>
+                            <li><i class="glyphicon glyphicon-time"></i> <span id='third-source'>Lorem</span></li>
+                            <li><i class="glyphicon glyphicon-tags"></i> <span id='third-author'>Ipsum</span></li>
                         </ul>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-7">
-                        <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                    <div id='third-article' class="col-xs-12 col-sm-12 col-md-7">
+                        <h3><a href="#" title="" id='third-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <p id='third-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                        
+                    </div>
+                    
+                </article>			
+                
+                <article class="search-result row">
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+<!--                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/sports" alt="Lorem ipsum" /></a>-->
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-2">
+                        <ul class="meta-search">
+                            <li><i class="glyphicon glyphicon-calendar"></i> <span id='fourth-date'>02/13/2014</span></li>
+                            <li><i class="glyphicon glyphicon-time"></i> <span id='fourth-source'>Lorem</span></li>
+                            <li><i class="glyphicon glyphicon-tags"></i> <span id='fourth-author'>Ipsum</span></li>
+                        </ul>
+                    </div>
+                    <div id='fourth-article' class="col-xs-12 col-sm-12 col-md-7">
+                        <h3><a href="#" title="" id='fourth-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <p id='fourth-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                        
+                    </div>
+                </article>
+                
+                <article class="search-result row">
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+<!--                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/sports" alt="Lorem ipsum" /></a>-->
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-2">
+                        <ul class="meta-search">
+                            <li><i class="glyphicon glyphicon-calendar"></i> <span id='fifth-date'>02/13/2014</span></li>
+                            <li><i class="glyphicon glyphicon-time"></i> <span id='fifth-source'>Lorem</span></li>
+                            <li><i class="glyphicon glyphicon-tags"></i> <span id='fifth-author'>Ipsum</span></li>
+                        </ul>
+                    </div>
+                    <div id='fifth-article' class="col-xs-12 col-sm-12 col-md-7">
+                        <h3><a href="#" title="" id='fifth-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+                        <p id='fifth-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
                         
                     </div>
                     <span class="clearfix border"></span>
-                </article>			
+                </article>
 
             </section>
         </div>
     </body>
+    
+    <!-- newsApi code -->
+    <script src="../js/newsApi/newsApi.js"></script>
+
 </html>

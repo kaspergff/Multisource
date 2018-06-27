@@ -22,15 +22,19 @@ function setArticlesOnPage(news, cn, ru, id, br) {
 
     //document.getElementById("other-source1").href = news[1].url;
     document.getElementById("other-source1").innerHTML = cn[0].source.name;
+    document.getElementById("other-source1-text").innerHTML = cn[0].description;
     //document.getElementById("other-source2").href = news[2].url;
     document.getElementById("other-source2").innerHTML = ru[0].source.name;
+    document.getElementById("other-source2-text").innerHTML = ru[0].description;
     //document.getElementById("other-source3").href = news[3].url;
     document.getElementById("other-source3").innerHTML = id[0].source.name;
+    document.getElementById("other-source3-text").innerHTML = id[0].description;
     //document.getElementById("other-source4").href = news[4].url;
     document.getElementById("other-source4").innerHTML = br[0].source.name;
+    document.getElementById("other-source4-text").innerHTML = br[0].description;
     //document.getElementById("other-source5").href = news[5].url;
     document.getElementById("other-source5").innerHTML = news[0].source.name;
-    //document.getElementById("other-news1").href = news[6].url;
+    document.getElementById("other-source5-text").innerHTML = news[0].description;
     document.getElementById("other-news1").innerHTML = news[6].title;
     //document.getElementById("other-news2").href = news[7].url;
     document.getElementById("other-news2").innerHTML = news[7].title;
