@@ -63,12 +63,3 @@ function setInfo(input) {
     document.getElementById("GDP_Per_Capita").innerHTML = "GDP per capita: " + landeinfo[input].GDP_Per_Capita;
     document.getElementById("HDI").innerHTML = "HDI: " + landeinfo[input].HDI;
 }
-
-var slider = new Slider("#ex8", {
-    tooltip: 'always'
-});
-
-// slider.on("slide", function () {
-//     removePoints();
-//     drawPoint(1);
-// });
