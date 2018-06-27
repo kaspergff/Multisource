@@ -138,6 +138,7 @@ map.on('load', function () {
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map),
                         gekliktPunt = randomFeatures[0].geometry.coordinates;
+                        lijntjesTekenen(e,map);
                 });
         } else if (drieFeatures.length > 0) {
             newsByCountry(features)
@@ -247,10 +248,10 @@ function createPopup(e, text, map) {
     if (map) {
         popup.addTo(map)
             .setLngLat(e.lngLat)
-            .setHTML("<a href=\"./pages/article.html\">" + text + "</a><br /> <div id='lijntjes'> Test text</div> ");
-            document.getElementById("lijntjes").addEventListener("click", function(){
-                lijntjesTekenen(e,map)
-            });
+            .setHTML("<a href=\"./pages/article.html\">" + text + "</a><br />  ");
+            // document.getElementById("lijntjes").addEventListener("click", function(){
+            //     lijntjesTekenen(e,map)
+            // });
     } else {
         var markerPopup = new mapboxgl.Popup(popupOptions);
         markerPopup.setHTML("<a href=\"https://www.w3schools.com/html/\">" + text + "</a>");
