@@ -1,223 +1,486 @@
 <html lang="en">
 
-    <head>
+<head>
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <title>MultiSource</title>
+    <title>MultiSource</title>
 
-        <!-- Bootstrap core CSS -->
-        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/main.css" rel="stylesheet" />
-        <link href="../css/searchResult2.css" rel="stylesheet" />
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet" />
+    <link href="../css/searchResult2.css" rel="stylesheet" />
 
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" crossorigin="anonymous"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" crossorigin="anonymous" />
 
-        <!-- JS Files -->
-        <script src='searchresult2.js'></script>
+    <!-- JS Files -->
+    <script src='searchresult2.js'></script>
+    <style>
+        @import "http://fonts.googleapis.com/css?family=Roboto:300,400,500,700";
+        .container {
+            margin-top: 20px;
+        }
 
-    </head>
+        .mb20 {
+            margin-bottom: 20px;
+        }
 
-    <body onload="loadPage();">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-inverse">
-            <div class="container-fluid">
+        .categories {
+            border-bottom: 1px solid #ccc
+        }
+
+        .categories ul {
+            padding-left: 0 !important;
+            list-style: none;
+        }
+
+        .categories ul li {
+            font: 400 normal .85em "Roboto", Arial, Verdana, sans-serif;
+            line-height: 30px;
+        }
+
+        .categories ul li i {
+            padding-right: 5px;
+        }
+
+        .categories .col-md-7 {
+            position: relative;
+        }
+
+        .categories h3 {
+            font: 500 normal 1.375em "Roboto", Arial, Verdana, sans-serif;
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+
+        .categories h3>a,
+        .categories i {
+            color: #248dc1 !important;
+        }
+
+        .categories p {
+            font: normal normal 1.125em "Roboto", Arial, Verdana, sans-serif;
+        }
+
+        .categories span.plus {
+            position: absolute;
+            right: 0;
+            top: 126px;
+        }
+
+        .categories span.plus a {
+            background-color: #248dc1;
+            padding: 5px 5px 3px 5px;
+        }
+
+        .categories span.plus a:hover {
+            background-color: #414141;
+        }
+
+        .categories span.plus a i {
+            color: #fff !important;
+        }
+
+        .categories span.border {
+            display: block;
+            width: 97%;
+            margin: 0 15px;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        hgroup {
+            padding-left: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        hgroup h1 {
+            font: 500 normal 1.625em "Roboto", Arial, Verdana, sans-serif;
+            color: #2a3644;
+            margin-top: 0;
+            line-height: 1.15;
+        }
+
+        hgroup h2.lead {
+            font: normal normal 1.125em "Roboto", Arial, Verdana, sans-serif;
+            color: #2a3644;
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        .search-result .thumbnail {
+            border-radius: 0 !important;
+        }
+
+        .search-result:first-child {
+            margin-top: 0 !important;
+        }
+
+        .search-result {
+            margin-top: 20px;
+        }
+
+        .search-result .col-md-2 {
+            border-right: 1px dotted #ccc;
+            min-height: 140px;
+        }
+
+        .search-result ul {
+            padding-left: 0 !important;
+            list-style: none;
+        }
+
+        .search-result ul li {
+            font: 400 normal .85em "Roboto", Arial, Verdana, sans-serif;
+            line-height: 30px;
+        }
+
+        .search-result ul li i {
+            padding-right: 5px;
+        }
+
+        .search-result .col-md-7 {
+            position: relative;
+        }
+
+        .search-result h3 {
+            font: 500 normal 1.375em "Roboto", Arial, Verdana, sans-serif;
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+
+        .search-result h3>a,
+        .search-result i {
+            color: #248dc1 !important;
+        }
+
+        .search-result p {
+            font: normal normal 1.125em "Roboto", Arial, Verdana, sans-serif;
+        }
+
+        .search-result span.plus {
+            position: absolute;
+            right: 0;
+            top: 126px;
+        }
+
+        .search-result span.plus a {
+            background-color: #248dc1;
+            padding: 5px 5px 3px 5px;
+        }
+
+        .search-result span.plus a:hover {
+            background-color: #414141;
+        }
+
+        .search-result span.plus a i {
+            color: #fff !important;
+        }
+
+        .search-result span.border {
+            display: block;
+            width: 97%;
+            margin: 0 15px;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .search-result img {
+            max-width: 250px;
+        }
+    </style>
+
+</head>
+
+
+<body onload="loadPage();">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <ul class="navbar-nav ml-auto">
                 <a class="navbar-brand" href="../index.html">MultiSource</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="wrap">
-                    <div class="search">
-                        <input type="text" class="searchTerm" id='searchField' placeholder="Search for an article...">
-                        <button type="submit" class="searchButton" id='searchButton' onclick="">
-                            <i class="fa fa-search"></i>
-                        </button>
-                        <script>
-                            document.getElementById('searchButton').onclick = function () {
-                                var inputValue = document.getElementById('searchField').value;
-                                localStorage.setItem("searchText", inputValue);
-                                location.href = './searchresult2.html';
-                            };
-                        </script>
-                    </div>
+            </ul>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" id='searchField' class="searchTerm" placeholder="Search for an article...">
+                    <button type="submit" id='searchButton' class="searchButton" onclick="">
+                        <i class="fa fa-search"></i>
+                    </button>
                 </div>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
+            </div>
+            <script>
+                var input = document.getElementById("searchField");
+                // Execute a function when the user releases a key on the keyboard
+                input.addEventListener("keyup", function (event) {
+                    // Number 13 is the "Enter" key on the keyboard
+                    if (event.keyCode === 13) {
+                        // Trigger the button element with a click
+                        document.getElementById("searchButton").click();
+                    }
+                });
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html">About</a>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li> -->
-                        <li class="dropdown nav-item">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                Login
-                                <span class="caret"></span>
-                            </a>
-                            <ul id="login-dp" class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            Login via
-                                            <div class="social-buttons">
-                                                <a href="#" class="btn btn-fb">
-                                                    <i class="fa fa-facebook"></i> Facebook</a>
-                                                <a href="#" class="btn btn-tw">
-                                                    <i class="fa fa-twitter"></i> Twitter</a>
+                document.getElementById('searchButton').onclick = function () {
+                    var inputValue = document.getElementById('searchField').value;
+                    localStorage.setItem("searchText", inputValue);
+                    location.href = './pages/searchresult2.html';
+                };
+            </script>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+
+
+                    <!-- <li class="nav-item">
+                                <a class="nav-link" href="#">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact</a>
+                            </li> -->
+                    <li class="dropdown nav-item">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            Login
+                            <span class="caret"></span>
+                        </a>
+                        <ul id="login-dp" class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        Login via
+                                        <div class="social-buttons">
+                                            <a href="#" class="btn btn-fb">
+                                                <i class="fa fa-facebook"></i> Facebook</a>
+                                            <a href="#" class="btn btn-tw">
+                                                <i class="fa fa-twitter"></i> Twitter</a>
+                                        </div>
+                                        or
+                                        <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
                                             </div>
-                                            or
-                                            <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                                <div class="help-block text-right">
+                                                    <a href="">Forget the password ?</a>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                                    <div class="help-block text-right">
-                                                        <a href="">Forget the password ?</a>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> keep me logged-in
-                                                    </label>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="bottom text-center">
-                                            New here ?
-                                            <a href="#">
-                                                <b>Join Us</b>
-                                            </a>
-                                        </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"> keep me logged-in
+                                                </label>
+                                            </div>
+                                        </form>
                                     </div>
-                                </li>
-                            </ul>
+                                    <div class="bottom text-center">
+                                        New here ?
+                                        <a href="#">
+                                            <b>Join Us</b>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+
+        <hgroup class="mb20">
+            <h1>Search Results</h1>
+            <h2 class="lead">
+                <strong class="text-danger">5</strong> results were found for the search for
+                <strong id='keyword' class="text-danger">Lorem</strong>
+            </h2>
+        </hgroup>
+
+
+
+        <section class="col-xs-12 col-sm-6 col-md-12">
+            <article class="search-result row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <a href="#" title="Lorem ipsum" class="thumbnail">
+                        <img id='first-img' src="" alt="Lorem ipsum" />
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2">
+                    <ul class="meta-search">
+                        <li>
+                            <i class="glyphicon glyphicon-calendar"></i>
+                            <span id='first-date'>02/13/2014</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-time"></i>
+                            <span id='first-source'>Lorem</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-tags"></i>
+                            <span id='first-author'>Ipsum</span>
                         </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-        <div class="container">
+                <div id='first-article' class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                    <h3>
+                        <a id='first-title' href="./article.html" title="">Voluptatem, exercitationem, suscipit, distinctio</a>
+                    </h3>
+                    <p id='first-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio,
+                        qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
+                </div>
+                <span class="clearfix borda"></span>
+            </article>
 
-            <hgroup class="mb20">
-                <h1>Search Results</h1>
-                <h2 class="lead"><strong class="text-danger">5</strong> results were found for the search for <strong id='keyword' class="text-danger">Lorem</strong></h2>								
-            </hgroup>
+            <article class="search-result row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <a href="#" title="Lorem ipsum" class="thumbnail">
+                        <img id='second-img' src="" alt="Lorem ipsum" />
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2">
+                    <ul class="meta-search">
+                        <li>
+                            <i class="glyphicon glyphicon-calendar"></i>
+                            <span id='second-date'>02/13/2014</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-time"></i>
+                            <span id='second-source'>Lorem</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-tags"></i>
+                            <span id='second-author'>Ipsum</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id='second-article' class="col-xs-12 col-sm-12 col-md-7">
+                    <h3>
+                        <a id='second-title' href="./article.html" title="">Voluptatem, exercitationem, suscipit, distinctio</a>
+                    </h3>
+                    <p id='second-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio,
+                        qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
 
+                </div>
+                <span class="clearfix borda"></span>
+            </article>
 
+            <article class="search-result row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <a href="#" title="Lorem ipsum" class="thumbnail">
+                        <img id='third-img' src="" alt="Lorem ipsum" />
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2">
+                    <ul class="meta-search">
+                        <li>
+                            <i class="glyphicon glyphicon-calendar"></i>
+                            <span id='third-date'>02/13/2014</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-time"></i>
+                            <span id='third-source'>Lorem</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-tags"></i>
+                            <span id='third-author'>Ipsum</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id='third-article' class="col-xs-12 col-sm-12 col-md-7">
+                    <h3>
+                        <a href="./article.html" title="" id='third-title'>Voluptatem, exercitationem, suscipit, distinctio</a>
+                    </h3>
+                    <p id='third-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio,
+                        qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
 
-            <section class="col-xs-12 col-sm-6 col-md-12">
-                <article class="search-result row">
-                    <div class="col-xs-12 col-sm-12 col-md-3">
-                        <a href="#" title="Lorem ipsum" class="thumbnail"><img id='first-img' src="" alt="Lorem ipsum" /></a>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-2">
-                        <ul class="meta-search">
-                            <li><i class="glyphicon glyphicon-calendar"></i> <span id='first-date'>02/13/2014</span></li>
-                            <li><i class="glyphicon glyphicon-time"></i> <span id='first-source'>Lorem</span></li>
-                            <li><i class="glyphicon glyphicon-tags"></i> <span id='first-author'>Ipsum</span></li>
-                        </ul>
-                    </div>
-                    <div id='first-article' class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                        <h3><a id='first-title' href="./article.html" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                        <p id='first-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
-                    </div>
-                    <span class="clearfix borda"></span>
-                </article>
+                </div>
 
-                <article class="search-result row">
-                    <div class="col-xs-12 col-sm-12 col-md-3">
-                        <a href="#" title="Lorem ipsum" class="thumbnail"><img id='second-img' src="" alt="Lorem ipsum" /></a>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-2">
-                        <ul class="meta-search">
-                            <li><i class="glyphicon glyphicon-calendar"></i> <span id='second-date'>02/13/2014</span></li>
-                            <li><i class="glyphicon glyphicon-time"></i> <span id='second-source'>Lorem</span></li>
-                            <li><i class="glyphicon glyphicon-tags"></i> <span id='second-author'>Ipsum</span></li>
-                        </ul>
-                    </div>
-                    <div id='second-article' class="col-xs-12 col-sm-12 col-md-7">
-                        <h3><a id='second-title' href="./article.html" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                        <p id='second-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+            </article>
 
-                    </div>
-                    <span class="clearfix borda"></span>
-                </article>
+            <article class="search-result row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <a href="#" title="Lorem ipsum" class="thumbnail">
+                        <img id='fourth-img' src="" alt="Lorem ipsum" />
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2">
+                    <ul class="meta-search">
+                        <li>
+                            <i class="glyphicon glyphicon-calendar"></i>
+                            <span id='fourth-date'>02/13/2014</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-time"></i>
+                            <span id='fourth-source'>Lorem</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-tags"></i>
+                            <span id='fourth-author'>Ipsum</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id='fourth-article' class="col-xs-12 col-sm-12 col-md-7">
+                    <h3>
+                        <a href="./article.html" title="" id='fourth-title'>Voluptatem, exercitationem, suscipit, distinctio</a>
+                    </h3>
+                    <p id='fourth-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio,
+                        qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
 
-                <article class="search-result row">
-                    <div class="col-xs-12 col-sm-12 col-md-3">
-                        <a href="#" title="Lorem ipsum" class="thumbnail"><img id='third-img' src="" alt="Lorem ipsum" /></a>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-2">
-                        <ul class="meta-search">
-                            <li><i class="glyphicon glyphicon-calendar"></i> <span id='third-date'>02/13/2014</span></li>
-                            <li><i class="glyphicon glyphicon-time"></i> <span id='third-source'>Lorem</span></li>
-                            <li><i class="glyphicon glyphicon-tags"></i> <span id='third-author'>Ipsum</span></li>
-                        </ul>
-                    </div>
-                    <div id='third-article' class="col-xs-12 col-sm-12 col-md-7">
-                        <h3><a href="./article.html" title="" id='third-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                        <p id='third-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                </div>
+            </article>
 
-                    </div>
+            <article class="search-result row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <a href="#" title="Lorem ipsum" class="thumbnail">
+                        <img id='fifth-img' src='' alt="Lorem ipsum" />
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2">
+                    <ul class="meta-search">
+                        <li>
+                            <i class="glyphicon glyphicon-calendar"></i>
+                            <span id='fifth-date'>02/13/2014</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-time"></i>
+                            <span id='fifth-source'>Lorem</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-tags"></i>
+                            <span id='fifth-author'>Ipsum</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id='fifth-article' class="col-xs-12 col-sm-12 col-md-7">
+                    <h3>
+                        <a href="./article.html" title="" id='fifth-title'>Voluptatem, exercitationem, suscipit, distinctio</a>
+                    </h3>
+                    <p id='fifth-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio,
+                        qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
 
-                </article>			
+                </div>
+                <span class="clearfix border"></span>
+            </article>
 
-                <article class="search-result row">
-                    <div class="col-xs-12 col-sm-12 col-md-3">
-                        <a href="#" title="Lorem ipsum" class="thumbnail"><img id='fourth-img' src="" alt="Lorem ipsum" /></a>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-2">
-                        <ul class="meta-search">
-                            <li><i class="glyphicon glyphicon-calendar"></i> <span id='fourth-date'>02/13/2014</span></li>
-                            <li><i class="glyphicon glyphicon-time"></i> <span id='fourth-source'>Lorem</span></li>
-                            <li><i class="glyphicon glyphicon-tags"></i> <span id='fourth-author'>Ipsum</span></li>
-                        </ul>
-                    </div>
-                    <div id='fourth-article' class="col-xs-12 col-sm-12 col-md-7">
-                        <h3><a href="./article.html" title="" id='fourth-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                        <p id='fourth-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+        </section>
+    </div>
+</body>
 
-                    </div>
-                </article>
-
-                <article class="search-result row">
-                    <div class="col-xs-12 col-sm-12 col-md-3">
-                        <a href="#" title="Lorem ipsum" class="thumbnail"><img id='fifth-img' src='' alt="Lorem ipsum" /></a>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-2">
-                        <ul class="meta-search">
-                            <li><i class="glyphicon glyphicon-calendar"></i> <span id='fifth-date'>02/13/2014</span></li>
-                            <li><i class="glyphicon glyphicon-time"></i> <span id='fifth-source'>Lorem</span></li>
-                            <li><i class="glyphicon glyphicon-tags"></i> <span id='fifth-author'>Ipsum</span></li>
-                        </ul>
-                    </div>
-                    <div id='fifth-article' class="col-xs-12 col-sm-12 col-md-7">
-                        <h3><a href="./article.html" title="" id='fifth-title'>Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                        <p id='fifth-description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
-
-                    </div>
-                    <span class="clearfix border"></span>
-                </article>
-
-            </section>
-        </div>
-    </body>
-
-    <!-- newsApi code -->
-    <script src="../js/newsApi/newsApi.js"></script>
+<!-- newsApi code -->
+<script src="../js/newsApi/newsApi.js"></script>
 
 </html>
