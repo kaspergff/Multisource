@@ -179,8 +179,8 @@ body {
   opacity: 1;
   -webkit-transition: .2s;
   transition: opacity .2s;
-
-  top: 32em;
+  position: relative;
+/*  top: 450px;*/
 }
 
 .slider::-webkit-slider-thumb {
@@ -191,6 +191,7 @@ body {
   border-radius: 50%; 
   background: #5d5858f7;
   cursor: pointer;
+  bottom: 0px;
 }
 
 .slider::-moz-range-thumb {
@@ -203,4 +204,7 @@ body {
 
 .slidecontainer {
   text-align: center;
+}
+#back-icon {
+     cursor: pointer
 }
