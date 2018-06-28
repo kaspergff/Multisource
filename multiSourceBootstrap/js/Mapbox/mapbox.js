@@ -14,6 +14,12 @@ var randomON = true;
 var mh17ON = false;
 var drieFeatures;
 
+var feat2 = false;
+var feat4 = false;
+var feat6 = false;
+var feat8 = false;
+var feat10 = false
+
 map.on('load', function () {
     // landen
     map.addSource("states", {
@@ -96,7 +102,7 @@ map.on('load', function () {
 
     // hiermee worden de random points getekend
     drawRandomPoints(1);
-    
+
     //Help popup
     myNotification({
         title: "Country-profile",
@@ -106,7 +112,7 @@ map.on('load', function () {
         title: "Article",
         message: "You can click the icons displayed on the map to select a certain event. A popup will show the title of an article, which can be accessed by clicking the title."
     });
-    
+
     //disable double click zoom
     map.doubleClickZoom.disable();
 
@@ -141,6 +147,12 @@ map.on('load', function () {
             layers: ['3points0']
         });
 
+        var feature2 = extraLayers("2", e, map);
+        var feature4 = extraLayers("4", e, map);
+        var feature6 = extraLayers("6", e, map);
+        var feature8 = extraLayers("8", e, map);
+        var feature10 = extraLayers("10", e, map);
+
         //If statement die de regelen welke popups / markers getoont moeten worden
         if (iconFeatures.length > 0) {
             removePoints();
@@ -156,6 +168,7 @@ map.on('load', function () {
                         gekliktPunt = randomFeatures[0].geometry.coordinates;
                     lijntjesTekenen(e, map);
                 });
+            inPunt = true;
         } else if (!mh17ON && drieFeatures.length > 0) {
             newsByCountry(features)
                 .then(function (articles) {
@@ -166,10 +179,30 @@ map.on('load', function () {
                 createPopup(e, mh17Features[i].properties.description, map);
             }
 
-        } else {
+        } else if (!mh17ON && feat2 && feature2.length) {
             newsByCountry(features)
                 .then(function (articles) {
-                    //createPopup(e, articles[0].title, map);
+                    createPopup(e, articles[0].title, map)
+                });
+        } else if (!mh17ON && feat4 && feature4.length) {
+            newsByCountry(features)
+                .then(function (articles) {
+                    createPopup(e, articles[0].title, map)
+                });
+        } else if (!mh17ON && feat6 && feature6.length) {
+            newsByCountry(features)
+                .then(function (articles) {
+                    createPopup(e, articles[0].title, map)
+                });
+        } else if (!mh17ON && feat8 && feature8.length) {
+            newsByCountry(features)
+                .then(function (articles) {
+                    createPopup(e, articles[0].title, map)
+                });
+        } else if (!mh17ON && feat10 && feature10.length) {
+            newsByCountry(features)
+                .then(function (articles) {
+                    createPopup(e, articles[0].title, map)
                 });
         }
     });
@@ -196,6 +229,14 @@ map.on('load', function () {
 
 });
 
+function extraLayers(id, e, map) {
+    var features = map.queryRenderedFeatures(e.point, {
+        layers: [id]
+    });
+    
+    return features;
+}
+
 var lineGeojson = {
     "type": "FeatureCollection",
     "features": [{
@@ -208,6 +249,7 @@ var lineGeojson = {
         }
     }]
 };
+
 
 var popupOptions = {
     closeButton: true,
@@ -233,6 +275,8 @@ function createPopup(e, text, map) {
 function removePoints() {
     map.removeLayer("points0");
 }
+
+
 
 function mh17Icons(map, e) {
     map.addLayer({
@@ -484,6 +528,80 @@ function lijntjesTekenen(e, map) {
     puntenArr = makeArr(punten);
     drawLineVanArr(puntenArr, gekliktPunt);
     randomON = false;
+}
+
+function draw2RandomPoints(naam) {
+    var punt1 = locations.features[Math.floor(Math.random() * 600)].geometry.coordinates;
+    var punt2 = locations.features[Math.floor(Math.random() * 600)].geometry.coordinates;
+    for (let i = 0; i < 2; i++) {
+        map.addLayer({
+            "id": naam,
+            "type": "symbol",
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "FeatureCollection",
+                    "features": [{
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": punt1
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": punt2
+                            },
+                            "properties": {
+                                "icon": "marker"
+                            }
+                        }
+                    ]
+                }
+            },
+            "layout": {
+                "icon-image": "{icon}-15",
+                "text-field": "{title}",
+                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                "text-offset": [0, 0.6],
+                "text-anchor": "top"
+            }
+        });
+        map.addLayer({
+            "id": naam + naam,
+            "type": "line",
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [
+                            [punt1[0], punt1[1]],
+                            [gekliktPunt[0], gekliktPunt[1]],
+                            [punt2[0], punt2[1]]
+
+                        ]
+                    }
+                }
+            },
+            "layout": {
+                "line-join": "round",
+                "line-cap": "round"
+            },
+            "paint": {
+                "line-color": "#888",
+                "line-width": 2
+            }
+        });
+    }
+
 }
 
 function lijntjesTekenenMH17() {

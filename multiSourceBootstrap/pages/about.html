@@ -13,34 +13,18 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" crossorigin="anonymous" />
 
-    <!--MapBox.js -->
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
-
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet" />
+    <link href="articles.css" rel="stylesheet" />
 
-    <!-- Custom styles for this template -->
-    <link href="css/main.css" rel="stylesheet" />
-    
-    <!-- Notifications -->
-    <script src="js/notifications/notifications.js"></script>
-    <link href="css/notifications.css" rel="stylesheet" />
-
-    <script src='js/Mapbox/landeninfo.js'></script>
-    <script src="js/Mapbox/locations.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.min.css"
-    />
 </head>
 
-<body>
-    <!-- Navigation -->
+<body onload="foo()">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-inverse">
         <div class="container-fluid">
             <ul class="navbar-nav ml-auto">
-                <a class="navbar-brand" href="index.html">MultiSource</a>
+                <a class="navbar-brand" href="../index.html">MultiSource</a>
             </ul>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -68,33 +52,17 @@
                 document.getElementById('searchButton').onclick = function () {
                     var inputValue = document.getElementById('searchField').value;
                     localStorage.setItem("searchText", inputValue);
-                    location.href = './pages/searchresult2.html';
+                    location.href = 'searchresult2.html';
                 };
-                
-                
-                    const myNotification = window.createNotification({
-                        displayCloseButton: true,
-                        positionClass: 'nfc-bottom-right',
-                        showDuration: 35000,
-                        theme: 'info'
-                    });
             </script>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./pages/about.html">About</a>
+                        <a class="nav-link" href="about.html">About</a>
                     </li>
-
-
-                    <!-- <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li> -->
                     <li class="dropdown nav-item">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                             Login
@@ -149,61 +117,39 @@
         </div>
     </nav>
 
-
-    <!-- Page Content -->
-    <!--Map-->
-
-    <div>
-        <div id="info">
-            <div class="row">
-                <div class="col">
-                    <h1 id="countryName">Test</h1>
-                </div>
-                <div class="col">
-                    <img id="Flag" src="" alt="Flag" class='img-fluid'>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="mt-5">About MultiSource</h1>
+                <p>
+                    Events can have quite a few different narratives since media from different countries cover news differently. However, readers
+                    usually only get to know one side of a story. To change this, MultiSource was invented. MultiSource is
+                    a web-based platform on which users can find news articles covering the latest news. What makes MultiSource
+                    different is that it uses more than 30.000 news outlets from all over the world so that it provides the
+                    user with news articles written from all different viewpoints. In this way the readers can properly orientate
+                    themselves on different events, so that later on they can form their own opinion without being influenced
+                    by bias media.
+                </p>
+                <p>The different articles shown on MultiSource are collected via <a href="https://newsapi.org/">NewsAPI</a>.
+                    <br /> The map used on MultiSource is powered by <a href="https://www.mapbox.com/">Mapbox</a>.
+                </p>
             </div>
-            <p id="Capital"></p>
-            <p id="Official_Language">Test</p>
-            <p id="Main_Religion">Test</p>
-            <p id="Population">Test</p>
-            <p id="Government">Test</p>
-            <p id="Head_Of_State">Test</p>
-            <p id="GDP_Per_Capita">Test</p>
-            <p id="HDI">Test</p>
-            <span id='back-icon' onclick='showInfo=false, setCountryInfo();'><i class="fa fa-angle-double-left" style="font-size:36px"></i></span>
         </div>
-        <div id='map' class='container-fluid'>
-
-        </div>
-
     </div>
-    <div class="slidecontainer">
-        <input type="range" min="1" max="10" value="10" class="slider" id="myRange">
-    </div>
-
 
 </body>
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Mapbox code -->
-<script src="js/Mapbox/ISO_A2.js"></script>
-<script src="js/Mapbox/mapbox.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- newsApi code -->
-<script src="js/newsApi/newsApi.js"></script>
+<script src="../js/newsApi/newsApi.js"></script>
 
 <!-- Main js -->
-<script src="js/main/main.js"></script>
-
-<!-- countryPage (to be renamed) js -->
-<script src="js/Mapbox/countryPage.js"></script>
-
-<!-- countryPage (to be renamed) js -->
-<script src="js/Mapbox/countryPage.js"></script>
+<script src="../js/main/main.js"></script>
+<script src="article.js"></script>
 
 
 

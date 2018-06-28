@@ -4,18 +4,18 @@ let china, rus, india, brasil;
 async function foo() {
     newsFetch = await News("us");
     console.log(newsFetch[0].title);
-    china = await newsUrl("https://newsapi.org/v2/top-headlines?category=business&country=cn&pageSize=1&apiKey=c0dd3e7f7a9840528c87934d92d511e0");
+    bul = await newsUrl("https://newsapi.org/v2/top-headlines?category=business&country=bg&pageSize=1&apiKey=c0dd3e7f7a9840528c87934d92d511e0");
     rus = await newsUrl("https://newsapi.org/v2/top-headlines?category=business&country=ru&pageSize=1&apiKey=c0dd3e7f7a9840528c87934d92d511e0");
     india = await newsUrl("https://newsapi.org/v2/top-headlines?category=business&country=id&pageSize=1&apiKey=c0dd3e7f7a9840528c87934d92d511e0");
     brasil = await newsUrl("https://newsapi.org/v2/top-headlines?category=business&country=br&pageSize=1&apiKey=c0dd3e7f7a9840528c87934d92d511e0");
-    setArticlesOnPage(newsFetch, china, rus, india, brasil);
+    setArticlesOnPage(newsFetch, bul, rus, india, brasil);
 }
 
 function setArticlesOnPage(news, cn, ru, id, br) {
     //document.getElementById("article-title").innerHTML = "<b>" + news[0].title + "</b>";
     //document.getElementById("article-img").src = news[0].urlToImage;
     // document.getElementById("article-description").innerHTML = news[0].description;
-    // document.getElementById("link-to-article").href = news[0].url;
+    document.getElementById("link-to-article").href = news[0].url;
     document.getElementById("article-source").innerHTML = "<b> Source: </b>" + news[0].source.name;
     document.getElementById("article-published-on").innerHTML = "<b> Published at: </b>" + news[0].publishedAt.slice(0, -10);
     document.getElementById("article-author").innerHTML = "<b> Author: </b>" + news[0].author;
