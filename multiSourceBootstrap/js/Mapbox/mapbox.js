@@ -97,6 +97,17 @@ map.on('load', function () {
     // hiermee worden de random points getekend
     drawRandomPoints(1);
 
+    //Help popup
+    myNotification({
+        title: "Country-profile",
+        message: "You can look at some facts and statistics about the countries. Double-click the desired country and have a look!"
+    });
+    myNotification({
+        title: "Article",
+        message: "You can click the icons displayed on the map to select a certain event. A popup will show the title of an article, which can be accessed by clicking the title."
+    });
+
+    
     //disable double click zoom
     map.doubleClickZoom.disable();
 
@@ -153,9 +164,9 @@ map.on('load', function () {
                         createPopup(e, articles[0].title, map)
                     });
         } else if (mh17ON && mh17Features.length > 0) {
-            for (var i=0; i < mh17Features.length; i++) {
+            for (var i = 0; i < mh17Features.length; i++) {
                 createPopup(e, mh17Features[i].properties.description, map);
-                
+
             }
             lijntjesTekenenMH17(e, map);
         } else {
