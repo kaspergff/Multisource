@@ -66,6 +66,14 @@
                     localStorage.setItem("searchText", inputValue);
                     location.href = './pages/searchresult2.html';
                 };
+                
+                
+                    const myNotification = window.createNotification({
+                        displayCloseButton: true,
+                        positionClass: 'nfc-bottom-right',
+                        showDuration: 35000,
+                        theme: 'info'
+                    });
             </script>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
