@@ -112,10 +112,7 @@ map.on('load', function () {
         title: "Article",
         message: "You can click the icons displayed on the map to select a certain event. A popup will show the title of an article, which can be accessed by clicking the title."
     });
-    myNotification({
-        title: "Look into the past",
-        message: "With the slider at the bottom of the map, you can see other related articles that have been posted in the past! Just click an event and drag the slider back to see the other articles appear."
-    });
+
 
     //disable double click zoom
     map.doubleClickZoom.disable();
@@ -165,6 +162,7 @@ map.on('load', function () {
             mh17Icons(map, e);
             lijntjesTekenenMH17();
             document.getElementById('slidecontainer').setAttribute("style", "display:block");
+            pastNoti()
         } else if (!mh17ON && randomON && randomFeatures.length > 0) {
             //map.removeLayer("mh-17");
             newsByCountry(features)
@@ -175,16 +173,19 @@ map.on('load', function () {
                 });
             inPunt = true;
             document.getElementById('slidecontainer').setAttribute("style", "display:block");
+            pastNoti()
         } else if (!mh17ON && drieFeatures.length > 0) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
+                pastNoti()
         } else if (mh17ON && mh17Features.length > 0) {
             for (var i = 0; i < mh17Features.length; i++) {
                 createPopup(e, mh17Features[i].properties.description, map);
             }document.getElementById('slidecontainer').setAttribute("style", "display:block");
+            pastNoti()
 
         } else if (!mh17ON && feat2 && feature2.length) {
             newsByCountry(features)
@@ -192,30 +193,35 @@ map.on('load', function () {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
+                pastNoti()
         } else if (!mh17ON && feat4 && feature4.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
+                pastNoti()
         } else if (!mh17ON && feat6 && feature6.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
+                pastNoti()
         } else if (!mh17ON && feat8 && feature8.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
+                pastNoti()
         } else if (!mh17ON && feat10 && feature10.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
+                pastNoti()
         }
     });
 
@@ -343,6 +349,13 @@ function mh17Icons(map, e) {
         }
     });
 
+}
+
+function pastNoti(){
+    myNotification({
+        title: "Look into the past",
+        message: "With the slider at the bottom of the map, you can see other related articles that have been posted in the past! Just click an event and drag the slider back to see the other articles appear."
+    });
 }
 
 
