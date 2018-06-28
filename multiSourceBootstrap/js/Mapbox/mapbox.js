@@ -131,8 +131,6 @@ map.on('load', function () {
             layers: ['3points0']
         });
 
-
-
         //If statement die de regelen welke popups / markers getoont moeten worden
         if (iconFeatures.length > 0) {
             removePoints();
@@ -141,7 +139,7 @@ map.on('load', function () {
             mh17Icons(map, e);
             lijntjesTekenenMH17();
         } else if (!mh17ON && randomON && randomFeatures.length > 0) {
-            map.removeLayer("mh-17");
+            //map.removeLayer("mh-17");
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map),
@@ -245,7 +243,7 @@ function mh17Icons(map, e) {
                         },
                         "properties": {
                             "icon": "marker",
-                            "description": "МО России: В Гааге подтвердили, что MH17 сбили из «Бука» ПВО Украины"
+                            "description": "МО России: В Гааге подтвердили, что MH17 сбили из «Бука» ПВО Украины",
                         }
                     },
                     {
