@@ -37,8 +37,8 @@ body {
   float: right;
   display: none;
   background-color: #f0f0ef;
-  border-style: solid;
-  border-color: #343a40;
+  /* border-style: solid;
+  border-color: #343a40; */
   padding: 10px;
 }
 

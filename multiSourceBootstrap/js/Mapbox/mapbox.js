@@ -64,16 +64,16 @@ map.on('load', function () {
             "data": {
                 "type": "FeatureCollection",
                 "features": [{
-                        "type": "Feature",
-                        "properties": {
-                            "description": "BLABLABLABLA",
-                            "icon": "marker"
-                        },
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [5, 52.931567]
-                        }
-                    }]
+                    "type": "Feature",
+                    "properties": {
+                        "description": "BLABLABLABLA",
+                        "icon": "marker"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [5, 52.931567]
+                    }
+                }]
             }
         },
         "layout": {
@@ -97,17 +97,6 @@ map.on('load', function () {
     // hiermee worden de random points getekend
     drawRandomPoints(1);
 
-    //Help popup
-    myNotification({
-        title: "Country-profile",
-        message: "You can look at some facts and statistics about the countries. Double-click the desired country and have a look!"
-    });
-    myNotification({
-        title: "Article",
-        message: "You can click the icons displayed on the map to select a certain event. A popup will show the title of an article, which can be accessed by clicking the title."
-    });
-
-    
     //disable double click zoom
     map.doubleClickZoom.disable();
 
@@ -146,34 +135,34 @@ map.on('load', function () {
 
         //If statement die de regelen welke popups / markers getoont moeten worden
         if (iconFeatures.length > 0) {
-            console.log("in de if statement");
             removePoints();
             mh17ON = true;
             createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
             mh17Icons(map, e);
+            lijntjesTekenenMH17();
         } else if (!mh17ON && randomON && randomFeatures.length > 0) {
+            map.removeLayer("mh-17");
             newsByCountry(features)
-                    .then(function (articles) {
-                        createPopup(e, articles[0].title, map),
-                                gekliktPunt = randomFeatures[0].geometry.coordinates;
-                        lijntjesTekenen(e, map);
-                    });
+                .then(function (articles) {
+                    createPopup(e, articles[0].title, map),
+                        gekliktPunt = randomFeatures[0].geometry.coordinates;
+                    lijntjesTekenen(e, map);
+                });
         } else if (!mh17ON && drieFeatures.length > 0) {
             newsByCountry(features)
-                    .then(function (articles) {
-                        createPopup(e, articles[0].title, map)
-                    });
+                .then(function (articles) {
+                    createPopup(e, articles[0].title, map)
+                });
         } else if (mh17ON && mh17Features.length > 0) {
             for (var i = 0; i < mh17Features.length; i++) {
                 createPopup(e, mh17Features[i].properties.description, map);
-
             }
-            lijntjesTekenenMH17(e, map);
+
         } else {
             newsByCountry(features)
-                    .then(function (articles) {
-                        //createPopup(e, articles[0].title, map);
-                    });
+                .then(function (articles) {
+                    //createPopup(e, articles[0].title, map);
+                });
         }
     });
 
@@ -202,14 +191,14 @@ map.on('load', function () {
 var lineGeojson = {
     "type": "FeatureCollection",
     "features": [{
-            "type": "Feature",
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [5, 52.931567]
-                ]
-            }
-        }]
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                [5, 52.931567]
+            ]
+        }
+    }]
 };
 
 var popupOptions = {
@@ -221,8 +210,8 @@ var popup = new mapboxgl.Popup(popupOptions);
 function createPopup(e, text, map) {
     if (map) {
         popup.addTo(map)
-                .setLngLat(e.lngLat)
-                .setHTML("<a href=\"./pages/article.html\">" + text + "</a><br />  ");
+            .setLngLat(e.lngLat)
+            .setHTML("<a href=\"./pages/article.html\">" + text + "</a><br />  ");
         // document.getElementById("lijntjes").addEventListener("click", function(){
         //     lijntjesTekenen(e,map)
         // });
@@ -490,11 +479,43 @@ function lijntjesTekenen(e, map) {
 }
 
 function lijntjesTekenenMH17() {
-    var mh17Punten = getFeatures('mh172');
-    var mh17Nederland = getFeatures('mh17');
-    var mh17NederlandCoord = mh17Nederland.geometry.coordinates;
-    var mh17PuntenArr = makeArr(mh17Punten, mh17NederlandCoord);
-    drawLineVanArr(mh17PuntenArr, mh17NederlandCoord);
+    punten = [
+        [5, 52.931567],
+        [37.621407, 55.754700],
+        [150.945667, -33.809140],
+        [-77.0369, 38.9072]
+
+    ]
+    map.addLayer({
+        "id": "routeMH17",
+        "type": "line",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                        [punten[0][0], punten[0][1]],
+                        [punten[1][0], punten[1][1]],
+                        [punten[0][0], punten[0][1]],
+                        [punten[2][0], punten[2][1]],
+                        [punten[0][0], punten[0][1]],
+                        [punten[3][0], punten[3][1]]
+                    ]
+                }
+            }
+        },
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": "#888",
+            "line-width": 2
+        }
+    });
 }
 
 function getFeatures(id) {
@@ -530,11 +551,11 @@ function icon(map, e) {
         var markerPopup = createPopup(marker.geometry.coordinates, marker.properties.message);
         // add marker to map
         new mapboxgl.Marker(el, {
-            offset: [markerOffsetX / 2, markerOffsetY / 2]
-        })
-                .setLngLat(marker.geometry.coordinates)
-                .addTo(map)
-                .setPopup(markerPopup);
+                offset: [markerOffsetX / 2, markerOffsetY / 2]
+            })
+            .setLngLat(marker.geometry.coordinates)
+            .addTo(map)
+            .setPopup(markerPopup);
         markerFeatures.push(marker.geometry.coordinates);
 
     });
