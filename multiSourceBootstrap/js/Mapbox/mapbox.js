@@ -14,6 +14,8 @@ var randomON = true;
 var mh17ON = false;
 var drieFeatures;
 
+var sliderBool = false;
+
 var feat2 = false;
 var feat4 = false;
 var feat6 = false;
@@ -162,7 +164,11 @@ map.on('load', function () {
             mh17Icons(map, e);
             lijntjesTekenenMH17();
             document.getElementById('slidecontainer').setAttribute("style", "display:block");
-            pastNoti()
+            if(!sliderBool){
+                pastNoti()
+                sliderBool=false
+            }
+           
         } else if (!mh17ON && randomON && randomFeatures.length > 0) {
             //map.removeLayer("mh-17");
             newsByCountry(features)
@@ -173,19 +179,21 @@ map.on('load', function () {
                 });
             inPunt = true;
             document.getElementById('slidecontainer').setAttribute("style", "display:block");
-            pastNoti()
+            if(!sliderBool){
+                pastNoti()
+                sliderBool=false
+            }
+            
         } else if (!mh17ON && drieFeatures.length > 0) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
-                pastNoti()
         } else if (mh17ON && mh17Features.length > 0) {
             for (var i = 0; i < mh17Features.length; i++) {
                 createPopup(e, mh17Features[i].properties.description, map);
             }document.getElementById('slidecontainer').setAttribute("style", "display:block");
-            pastNoti()
 
         } else if (!mh17ON && feat2 && feature2.length) {
             newsByCountry(features)
@@ -193,35 +201,30 @@ map.on('load', function () {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
-                pastNoti()
         } else if (!mh17ON && feat4 && feature4.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
-                pastNoti()
         } else if (!mh17ON && feat6 && feature6.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
-                pastNoti()
         } else if (!mh17ON && feat8 && feature8.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
-                pastNoti()
         } else if (!mh17ON && feat10 && feature10.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
                 document.getElementById('slidecontainer').setAttribute("style", "display:block");
-                pastNoti()
         }
     });
 
