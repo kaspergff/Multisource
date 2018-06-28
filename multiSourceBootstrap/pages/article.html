@@ -52,7 +52,7 @@
                 document.getElementById('searchButton').onclick = function () {
                     var inputValue = document.getElementById('searchField').value;
                     localStorage.setItem("searchText", inputValue);
-                    location.href = './pages/searchresult2.html';
+                    location.href = 'searchresult2.html';
                 };
             </script>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -61,16 +61,8 @@
                         <a class="nav-link" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="about.html">About</a>
                     </li>
-
-
-                    <!-- <li class="nav-item">
-                                            <a class="nav-link" href="#">Services</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Contact</a>
-                                        </li> -->
                     <li class="dropdown nav-item">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                             Login
@@ -155,52 +147,21 @@
                     <p>
                         <a href="" id="link-to-article" target="_blank">Click here to read the full article</a>
                     </p>
+                    <div class=".col-4 mt-5" id="comments2">
+                        <label for="comment">Comments:</label>
+                        <p id="comment-text">Be the first to comment.</p>
+                    </div>
 
                     <div class=".col-4 mt-5" id="comments">
-                        <img src="../images/comments.png" />
-                        <div class="container pb-cmnt-container">
-                            <div class="row">
-                                <div class="col-md-6 offset-md-3">
-                                    <div class="card card-info">
-                                        <div class="card-block">
-                                            <textarea placeholder="Write your comment here!" class="pb-cmnt-textarea"></textarea>
-                                            <form class="form-inline">
-                                                <div class="btn-group">
-                                                    <button class="btn" type="button">
-                                                        <span class="fa fa-picture-o fa-lg"></span>
-                                                    </button>
-                                                    <button class="btn" type="button">
-                                                        <span class="fa fa-video-camera fa-lg"></span>
-                                                    </button>
-                                                    <button class="btn" type="button">
-                                                        <span class="fa fa-microphone fa-lg"></span>
-                                                    </button>
-                                                    <button class="btn" type="button">
-                                                        <span class="fa fa-music fa-lg"></span>
-                                                    </button>
-                                                </div>
-                                                <button class="btn btn-primary float-xs-right" type="button">Share</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label for="comment">Comment:</label>
+                            <textarea class="form-control" rows="5" id="comment"></textarea>
+                            <br />
+                            <button onclick="setComment()" type="button" class="btn">Comment</button>
                         </div>
-                        <style>
-                            .pb-cmnt-container {
-                                font-family: Lato;
-                                margin-top: 100px;
-                            }
-
-                            .pb-cmnt-textarea {
-                                resize: none;
-                                padding: 20px;
-                                height: 130px;
-                                width: 100%;
-                                border: 1px solid #F2F2F2;
-                            }
-                        </style>
                     </div>
+
+
                 </div>
 
                 <div class="col-md-3" id="box2">
@@ -281,5 +242,13 @@
 <!-- Main js -->
 <script src="../js/main/main.js"></script>
 <script src="article.js"></script>
+
+<script>
+    function setComment() {
+        var textComment = document.getElementById('comment').value;
+        document.getElementById("comment-text").innerHTML = "\"" + textComment +  "\"";
+
+    }
+</script>
 
 </html>
