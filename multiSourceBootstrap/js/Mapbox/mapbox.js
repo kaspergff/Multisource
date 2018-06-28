@@ -112,6 +112,10 @@ map.on('load', function () {
         title: "Article",
         message: "You can click the icons displayed on the map to select a certain event. A popup will show the title of an article, which can be accessed by clicking the title."
     });
+    myNotification({
+        title: "Look into the past",
+        message: "With the slider at the bottom of the map, you can see other related articles that have been posted in the past! Just click an event and drag the slider back to see the other articles appear."
+    });
 
     //disable double click zoom
     map.doubleClickZoom.disable();
