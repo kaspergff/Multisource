@@ -28,3 +28,12 @@ h3 {
 .row{
     margin: 0px;
 }
+
+.navbar-brand {
+    padding: 0px;
+  }
+  .navbar-brand>img {
+    height: 10%;
+    padding-right:20px;
+    width: auto;
+  }
