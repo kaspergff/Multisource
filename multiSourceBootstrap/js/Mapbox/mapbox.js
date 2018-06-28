@@ -133,12 +133,13 @@ map.on('load', function () {
             removePoints();
             createPopup(e, "Het Joint Investigation Team (JIT): 'Een Russische raket heeft MH-17 neergeschoten'", map);
             icon(map, e);
+            //mh17Points();
         } else if (randomON && randomFeatures.length > 0) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map),
                         gekliktPunt = randomFeatures[0].geometry.coordinates;
-                        lijntjesTekenen(e,map);
+                    lijntjesTekenen(e, map);
                 });
         } else if (drieFeatures.length > 0) {
             newsByCountry(features)
@@ -176,46 +177,58 @@ map.on('load', function () {
 });
 
 var markerGeoJSON = {
-    "type": "FeatureCollection",
-    "features": [{
-            "type": "Feature",
-            "properties": {
-                "message": "МО России: В Гааге подтвердили, что MH17 сбили из «Бука» ПВО Украины",
-                "iconSize": [32, 32]
+    "type": "geojson",
+    "data": {
+        "type": "FeatureCollection",
+        "features": [{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        37.621407,
+                        55.754700
+                    ]
+                },
+                "properties": {
+                    "icon": "marker",
+                    "description": "МО России: В Гааге подтвердили, что MH17 сбили из «Бука» ПВО Украины"
+                }
             },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    37.621407,
-                    55.754700
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "message": "JIT confirms: The missle that took down MH-17 was of russian origin",
-                "iconSize": [32, 32]
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [150.945667, -33.809140]
+                },
+                "properties": {
+                    "icon": "marker",
+                    "description": "JIT confirms: The missle that took down MH-17 was of russian origin"
+                }
             },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    150.945667, -33.809140
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "message": "Baz",
-                "iconSize": [32, 32]
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates":  [-63.29223632812499, -18.28151823530889]
+                },
+                "properties": {
+                    "icon": "marker",
+                    "description": "JIT confirma: El misil que derribó MH-17 era de origen ruso"
+                }
             },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-63.29223632812499, -18.28151823530889]
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [-77.0369,38.9072]
+                },
+                "properties": {
+                    "icon": "marker",
+                    "description": "Donald Trump says Russia isn't to blame for MH17, despite evidence"
+                }
             }
-        }
-    ]
+        ]
+    }
 };
 
 var lineGeojson = {
@@ -249,9 +262,9 @@ function createPopup(e, text, map) {
         popup.addTo(map)
             .setLngLat(e.lngLat)
             .setHTML("<a href=\"./pages/article.html\">" + text + "</a><br />  ");
-            // document.getElementById("lijntjes").addEventListener("click", function(){
-            //     lijntjesTekenen(e,map)
-            // });
+        // document.getElementById("lijntjes").addEventListener("click", function(){
+        //     lijntjesTekenen(e,map)
+        // });
     } else {
         var markerPopup = new mapboxgl.Popup(popupOptions);
         markerPopup.setHTML("<a href=\"https://www.w3schools.com/html/\">" + text + "</a>");
@@ -261,6 +274,22 @@ function createPopup(e, text, map) {
 // functie haalt de random punten van de map.
 function removePoints() {
     map.removeLayer("points0")
+}
+
+function mh17Icons(){
+    markerGeoJSON.features.forEach(function(marker) {
+
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
+      
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+        .setLngLat(marker.geometry.coordinates)
+        .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>'))
+        .addTo(map);
+    }
 }
 
 
