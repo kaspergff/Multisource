@@ -63,3 +63,13 @@ function setInfo(input) {
     document.getElementById("GDP_Per_Capita").innerHTML = "GDP per capita: " + landeinfo[input].GDP_Per_Capita;
     document.getElementById("HDI").innerHTML = "HDI: " + landeinfo[input].HDI;
 }
+var slider = document.getElementById("myRange");
+slider.oninput = function () {
+    if (this.value === '15' || this.value === '1') {
+//        var source = map.getSource('points0');
+//        console.log("source: " + source);
+//        map.removeSource(source);
+        removePoints();
+        drawRandomPoints(1);
+    }
+};

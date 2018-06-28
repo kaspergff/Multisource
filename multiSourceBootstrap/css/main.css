@@ -180,7 +180,7 @@ body {
   -webkit-transition: .2s;
   transition: opacity .2s;
 
-  bottom: 50%;
+  top: 32em;
 }
 
 .slider::-webkit-slider-thumb {
