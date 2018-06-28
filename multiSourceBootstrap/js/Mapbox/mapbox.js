@@ -273,7 +273,7 @@ function createPopup(e, text, map) {
 }
 // functie haalt de random punten van de map.
 function removePoints() {
-    map.removeLayer("points0")
+    map.removeLayer("points0");
 }
 
 function mh17Icons(){

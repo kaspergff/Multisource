@@ -29,6 +29,17 @@ body {
   margin-left: auto;
 } */
 
+.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand>img {
+  height: 10%;
+  padding-right:20px;
+  width: auto;
+}
+
+
+
 #info {
   top: 0;
   bottom: 0;
@@ -179,8 +190,7 @@ body {
   opacity: 1;
   -webkit-transition: .2s;
   transition: opacity .2s;
-
-  bottom: 50%;
+  top: 575px;
 }
 
 .slider::-webkit-slider-thumb {
