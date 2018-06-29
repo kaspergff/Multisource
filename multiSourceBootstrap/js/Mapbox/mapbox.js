@@ -16,11 +16,11 @@ var drieFeatures;
 
 var sliderBool = false;
 
-var feat2 = false;
-var feat4 = false;
-var feat6 = false;
-var feat8 = false;
-var feat10 = false
+var feat2 = true;
+var feat4 = true;
+var feat6 = true;
+var feat8 = true;
+var feat10 = true;
 
 map.on('load', function () {
     // landen
