@@ -22,6 +22,7 @@ var feat6 = true;
 var feat8 = true;
 var feat10 = true;
 
+
 map.on('load', function () {
     // landen
     map.addSource("states", {
@@ -164,11 +165,11 @@ map.on('load', function () {
             mh17Icons(map, e);
             lijntjesTekenenMH17();
             document.getElementById('slidecontainer').setAttribute("style", "display:block");
-            if(!sliderBool){
+            if (!sliderBool) {
                 pastNoti()
-                sliderBool=false
+                sliderBool = false
             }
-           
+
         } else if (!mh17ON && randomON && randomFeatures.length > 0) {
             //map.removeLayer("mh-17");
             newsByCountry(features)
@@ -179,52 +180,53 @@ map.on('load', function () {
                 });
             inPunt = true;
             document.getElementById('slidecontainer').setAttribute("style", "display:block");
-            if(!sliderBool){
+            if (!sliderBool) {
                 pastNoti()
-                sliderBool=false
+                sliderBool = false
             }
-            
+
         } else if (!mh17ON && drieFeatures.length > 0) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
-                document.getElementById('slidecontainer').setAttribute("style", "display:block");
+            document.getElementById('slidecontainer').setAttribute("style", "display:block");
         } else if (mh17ON && mh17Features.length > 0) {
             for (var i = 0; i < mh17Features.length; i++) {
                 createPopup(e, mh17Features[i].properties.description, map);
-            }document.getElementById('slidecontainer').setAttribute("style", "display:block");
+            }
+            document.getElementById('slidecontainer').setAttribute("style", "display:block");
 
         } else if (!mh17ON && feat2 && feature2.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
-                document.getElementById('slidecontainer').setAttribute("style", "display:block");
+            document.getElementById('slidecontainer').setAttribute("style", "display:block");
         } else if (!mh17ON && feat4 && feature4.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
-                document.getElementById('slidecontainer').setAttribute("style", "display:block");
+            document.getElementById('slidecontainer').setAttribute("style", "display:block");
         } else if (!mh17ON && feat6 && feature6.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
-                document.getElementById('slidecontainer').setAttribute("style", "display:block");
+            document.getElementById('slidecontainer').setAttribute("style", "display:block");
         } else if (!mh17ON && feat8 && feature8.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
-                document.getElementById('slidecontainer').setAttribute("style", "display:block");
+            document.getElementById('slidecontainer').setAttribute("style", "display:block");
         } else if (!mh17ON && feat10 && feature10.length) {
             newsByCountry(features)
                 .then(function (articles) {
                     createPopup(e, articles[0].title, map)
                 });
-                document.getElementById('slidecontainer').setAttribute("style", "display:block");
+            document.getElementById('slidecontainer').setAttribute("style", "display:block");
         }
     });
 
@@ -254,7 +256,7 @@ function extraLayers(id, e, map) {
     var features = map.queryRenderedFeatures(e.point, {
         layers: [id]
     });
-    
+
     return features;
 }
 
@@ -279,17 +281,26 @@ var popupOptions = {
 var popup = new mapboxgl.Popup(popupOptions);
 
 function createPopup(e, text, map) {
-    if (map) {
-        popup.addTo(map)
-            .setLngLat(e.lngLat)
-            .setHTML("<a href=\"./pages/article.html\">" + text + "</a><br />  ");
+    if (!mh17ON) {
+        if (map) {
+            popup.addTo(map)
+                .setLngLat(e.lngLat)
+
+                .setHTML("<a href=\"./pages/article.html\">" + text + "</a><br />  ");
+        }
+
+
         // document.getElementById("lijntjes").addEventListener("click", function(){
         //     lijntjesTekenen(e,map)
         // });
-    } else {
-        var markerPopup = new mapboxgl.Popup(popupOptions);
-        markerPopup.setHTML("<a href=\"https://www.w3schools.com/html/\">" + text + "</a>");
-        return markerPopup;
+    }
+    else if(mh17ON){
+        if (map) {
+            popup.addTo(map)
+                .setLngLat(e.lngLat)
+
+                .setHTML("<a href=\"./pages/articleJIT.html\">" + text + "</a><br />  ");
+        }
     }
 }
 // functie haalt de random punten van de map.
@@ -354,7 +365,7 @@ function mh17Icons(map, e) {
 
 }
 
-function pastNoti(){
+function pastNoti() {
     myNotification({
         title: "Look into the past",
         message: "With the slider at the bottom of the map, you can see other related articles that have been posted in the past! Just click an event and drag the slider back to see the other articles appear."
